@@ -34,11 +34,11 @@ public class Tren extends Thread{
 	 */
 	private void simularPasoPorEstacion(Estacion estacion) {
 		try {
-			estacion.acquire();
+			estacion.pedirPermisoDeIngreso();
 			System.out.println("Tren:" + this +" Entrando a Estacion:" + estacion);
 			this.simularCargaDePasajeros();
 			System.out.println("Tren:" + this + " Saliendo de Estacion:" + estacion);
-			estacion.release();
+			estacion.liberarPermisoDeIngreso();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 			estacion.release();

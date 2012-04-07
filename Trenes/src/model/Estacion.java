@@ -14,7 +14,19 @@ public class Estacion extends Semaphore {
 		this.nombre=_nombre;
 	}
 
-	
+	/**
+	 * Da el permiso del semaforo
+	 * @throws InterruptedException
+	 */
+	public void pedirPermisoDeIngreso() throws InterruptedException{
+		this.acquire();
+	}
+	/**
+	 * Retorna el permiso
+	 */
+	public void liberarPermisoDeIngreso(){
+		this.release();
+	}
 	/**
 	 * toString que retorna el nombre de la Estacion
 	 */
