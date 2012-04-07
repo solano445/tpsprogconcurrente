@@ -24,7 +24,7 @@ public class Tren extends Thread{
 			this.simularPasoDelTiempo(4000);
 			this.simularPasoPorEstacion(estacion);
 		}
-		System.out.println("Fin Del Recorrido");
+		System.out.println("Fin Del Recorrido Del Tren:" + this);
 	}
 
 	/**
@@ -35,9 +35,9 @@ public class Tren extends Thread{
 	private void simularPasoPorEstacion(Estacion estacion) {
 		try {
 			estacion.acquire();
-			System.out.println("Tren:" + this +"Entrando a Estacion:" + estacion);
+			System.out.println("Tren:" + this +" Entrando a Estacion:" + estacion);
 			this.simularCargaDePasajeros();
-			System.out.println("Tren:" + this + "Saliendo de Estacion:" + estacion);
+			System.out.println("Tren:" + this + " Saliendo de Estacion:" + estacion);
 			estacion.release();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
