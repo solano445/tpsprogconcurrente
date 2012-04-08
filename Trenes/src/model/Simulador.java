@@ -57,7 +57,7 @@ public class Simulador extends Thread{
 		System.out.println(circuito);
 	}
 
-	private void setEstaciones(Estacion[] estacionesT) {
+	public void setEstaciones(Estacion[] estacionesT) {
 		this.estaciones = estacionesT;		
 	}
 	
