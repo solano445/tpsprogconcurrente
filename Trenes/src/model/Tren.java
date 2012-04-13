@@ -10,25 +10,22 @@ public class Tren extends Thread{
 	private String identificador;
 	private Estacion[] estaciones;
 	private int estacionAnterior = 0;
-	private Simulador simulador;
 	
 	
-	public Tren(String idT, Estacion[] estacionesT, boolean aLaDerechaTemp, Simulador simuladorT){
+	public Tren(String idT, Estacion[] estacionesT, boolean aLaDerechaTemp){
 		this.identificador = idT;
 		this.estaciones = estacionesT;
 		this.aLaDerecha = aLaDerechaTemp;
-		this.simulador = simuladorT;		
-		this.ubicarEnPrimerEstacion();
 	}
 	
 	private void ubicarEnPrimerEstacion() {
 		try {
 			estaciones[estacionAnterior].pedirPermisoDeIngreso();
-			estaciones[estacionAnterior].ocuparAnden(this);
-			System.out.println("se ocupa el anden de " + estaciones[estacionAnterior].getNombre());
+			//System.out.println("se ocupa el anden de " + estaciones[estacionAnterior].getNombre());
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+		estaciones[estacionAnterior].ocuparAnden(this);
 	}
 
 	private Estacion estacionSiguiente(){
@@ -46,16 +43,17 @@ public class Tren extends Thread{
 	 * Hace Iniciar El Recorrido del tren por toda la lista de estaciones.
 	 */
 	@Override
-	public void run() {
+	public void run() {	
+		this.ubicarEnPrimerEstacion();
 		/*
 		 * libera la primera estacion que ocupaba y empieza el recorrido;
 		 */
 		this.estaciones[estacionAnterior].liberarPermisoDeIngreso();
-		System.out.println("Se libera el anden de " + estaciones[estacionAnterior].getNombre());
+		//System.out.println("Se libera el anden de " + estaciones[estacionAnterior].getNombre());
 		
 		while(true) {
 			this.simularPasoDelTiempo(1000);
-			System.out.println("Se simula 1 segundo de tiempo de recorrido");
+			//System.out.println("Se simula 1 segundo de tiempo de recorrido");
 			/**este tiempo deberia ser aleatorio o depender de la estacion*/
 			this.simularPasoPorEstacion(this.estacionSiguiente());
 		}
@@ -70,17 +68,17 @@ public class Tren extends Thread{
 	private void simularPasoPorEstacion(Estacion estacion) {
 		try {
 			estacion.pedirPermisoDeIngreso();
-			System.out.println("Se pide permiso para ocupar el anden de " + estaciones[estacionAnterior].getNombre());
+			//System.out.println("Se pide permiso para ocupar el anden de " + estaciones[estacionAnterior].getNombre());
 			//System.out.println("Tren:" + this +" Entrando a Estacion:" + estacion);
 			estacion.ocuparAnden(this);		
-			System.out.println("se ocupa anden de " + estaciones[estacionAnterior].getNombre());
+			//System.out.println("se ocupa anden de " + estaciones[estacionAnterior].getNombre());
 			this.simularCargaDePasajeros();			
-			System.out.println("se levanta pasajeros en " + estaciones[estacionAnterior].getNombre());
+			//System.out.println("se levanta pasajeros en " + estaciones[estacionAnterior].getNombre());
 			estacion.liberarAnden(this);	
-			System.out.println("se libera anden de " + estaciones[estacionAnterior].getNombre());
+			//System.out.println("se libera anden de " + estaciones[estacionAnterior].getNombre());
 			//System.out.println("Tren:" + this + " Saliendo de Estacion:" + estacion);
 			estacion.liberarPermisoDeIngreso();
-			System.out.println("Se libera el anden de " + estaciones[estacionAnterior].getNombre());
+			//System.out.println("Se libera el anden de " + estaciones[estacionAnterior].getNombre());
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 			estacion.release();

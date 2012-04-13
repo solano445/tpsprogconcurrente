@@ -31,8 +31,8 @@ public class Simulador extends Thread{
 		Tren trenes[] = new Tren[cantT];
 		for(int i=0; i<cantT; i++){
 			boolean aladerecha = (i%2 == 1);
-			trenes[i] = new Tren(String.valueOf(i), estacionesT, true, simuladorRoca);
-			trenes[i].run();
+			trenes[i] = new Tren(String.valueOf(i), estacionesT, aladerecha);
+			trenes[i].start();
 		}
 		
 		while(true){
