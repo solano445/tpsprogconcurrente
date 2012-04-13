@@ -67,7 +67,7 @@ public class Estacion extends Semaphore {
 	private String trenesToString() {
 		String returned = "";
 		for(Tren t:this.enAnden){
-			returned += t.getName() + " ";
+			returned += t.toString() + " ";
 		}
 		return returned;
 	}
