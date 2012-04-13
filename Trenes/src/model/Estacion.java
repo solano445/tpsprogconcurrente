@@ -11,7 +11,7 @@ public class Estacion extends Semaphore {
 
 	//Constructor
 	/**
-	 * Lo construyo con un solo permiso
+	 * Lo construyo con la cantidad de permisos que recibo por parametro
 	 */
 	public Estacion(String nombre , Integer cantAndenes) {
 		super(cantAndenes);
