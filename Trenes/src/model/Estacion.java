@@ -3,18 +3,20 @@ package model;
 import java.util.concurrent.Semaphore;
 
 	
-public class Estacion extends Semaphore {
+public class Estacion{
 
 	//Variables
-	private static final long serialVersionUID = 1L;
 	private String nombre;
+	private Semaphore[] permisos;
 
 	//Constructor
 	/**
 	 * Lo construyo con la cantidad de permisos que recibo por parametro
 	 */
 	public Estacion(String nombre , Integer cantAndenes) {
-		super(cantAndenes , true);
+		this.permisos= new Semaphore[2];
+		this.permisos[0] = new Semaphore(cantAndenes, true);
+		this.permisos[1] = new Semaphore(cantAndenes, true);
 		this.nombre = nombre;
 	}
 
@@ -23,15 +25,15 @@ public class Estacion extends Semaphore {
 	 * Da el permiso del semaforo
 	 * @throws InterruptedException
 	 */
-	public void pedirPermisoDeIngreso() throws InterruptedException{
-		this.acquireUninterruptibly();
+	public void pedirPermisoDeIngreso(Integer anden) throws InterruptedException{
+		this.permisos[anden].acquireUninterruptibly();
 	}
 	
 	/**
 	 * Retorna el permiso
 	 */
-	public void liberarPermisoDeIngreso(){
-		this.release();
+	public void liberarPermisoDeIngreso(Integer anden){
+		this.permisos[anden].release();
 	}
 	
 	/**
@@ -49,5 +51,13 @@ public class Estacion extends Semaphore {
 	}
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public Semaphore[] getPermisos() {
+		return permisos;
+	}
+
+	public void setPermisos(Semaphore[] permisos) {
+		this.permisos = permisos;
 	}
 }

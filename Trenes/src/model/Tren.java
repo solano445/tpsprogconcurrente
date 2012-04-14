@@ -73,10 +73,10 @@ public class Tren extends Thread {
 
 			this.waitP();
 			this.setEstado("Esperando Ingreso");
-			System.out.println("Tren:" + this + "Esperando Ingreso A Estacion: " + estacion);
+			System.out.println("Tren:" + this + " Esperando Ingreso A Estacion: " + estacion);
 			this.signal();
 			
-			estacion.pedirPermisoDeIngreso();
+			estacion.pedirPermisoDeIngreso(this.getAnden());
 
 			//Paso a estado DETENIDO Y EN CARGA
 			this.waitP();
@@ -88,7 +88,7 @@ public class Tren extends Thread {
 			
 			this.waitP();
 			this.setEstado("En Movimiento");
-			estacion.liberarPermisoDeIngreso();
+			estacion.liberarPermisoDeIngreso(this.getAnden());
 			System.out.println("Tren:" + this + " Saliendo de Estacion:"+ estacion);
 			this.signal();
 			
@@ -96,7 +96,7 @@ public class Tren extends Thread {
 			e.printStackTrace();
 			//PASA A ESTADO EN MOVIMIENTO
 			this.setEstado("En Movimiento");
-			estacion.release();
+			estacion.liberarPermisoDeIngreso(this.getAnden());
 			System.out.println("Choque En La Estacion:" + estacion);
 		}
 	}
