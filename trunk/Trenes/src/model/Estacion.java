@@ -14,7 +14,7 @@ public class Estacion extends Semaphore {
 	 * Lo construyo con la cantidad de permisos que recibo por parametro
 	 */
 	public Estacion(String nombre , Integer cantAndenes) {
-		super(cantAndenes);
+		super(cantAndenes , true);
 		this.nombre = nombre;
 	}
 
