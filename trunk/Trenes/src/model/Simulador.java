@@ -85,10 +85,19 @@ public class Simulador {
 		Tren belgrano = new Tren("Belgrano", simulador.recorridoTrenBelgrano() , 1);
 		Tren roca = new Tren("Roca", simulador.recorridoTrenBelgrano() , 0);
 		Tren sarmiento = new Tren("Sarmiento", simulador.recorridoTrenBelgrano() , 1);
+		Tren sanMartin = new Tren("San Martin", simulador.recorridoTrenBelgrano() , 0);
+		Tren rosas = new Tren("Rosas", simulador.recorridoTrenBelgrano() , 0);
+		Tren mitre = new Tren("Mitre", simulador.recorridoTrenBelgrano() , 1);
+		Tren jd = new Tren("Juan Domingo", simulador.recorridoTrenBelgrano() , 1);
 		
 		trenes.add(belgrano);
 		trenes.add(roca);
 		trenes.add(sarmiento);
+		trenes.add(sanMartin);
+		trenes.add(rosas);
+		trenes.add(mitre);
+		trenes.add(jd);
+		
 		
 		simulador.iniciarTrenes(trenes);
 		
