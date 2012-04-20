@@ -108,7 +108,6 @@ public class Simulador {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			System.out.println("cagadaaaa");
 			
 			simulador.congelarTrenes(trenes);
 
