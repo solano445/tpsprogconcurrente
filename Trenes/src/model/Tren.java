@@ -5,7 +5,7 @@ import java.util.concurrent.Semaphore;
 public class Tren extends Thread {
 
 	// Variables
-	private String numero;
+	public String numero;
 	private Recorrido recorrido;
 	private Semaphore permiso;
 	private Estacion actual;
