@@ -7,18 +7,16 @@ public class Tren extends Thread {
 	// Variables
 	public String numero;
 	private Recorrido recorrido;
-	private Semaphore permiso;
 	private Estacion actual;
 	private Estacion anterior;
-	private String estado;
+	private EstadoTrenEnum estado;
 	private Integer anden; // 0 = izquierda - 1 = derecha
 
 	// Constructor
 	public Tren(String numero, Recorrido recorrido, Integer anden) {
 		this.numero = numero;
 		this.setRecorrido(recorrido);
-		this.permiso = new Semaphore(1, true);
-		this.estado = "Detenido";
+		this.estado = EstadoTrenEnum.Detenido;
 		this.setAnden(anden);
 		this.actual= new Estacion("testLoco", 100);
 	}
@@ -34,31 +32,20 @@ public class Tren extends Thread {
 	@Override
 	public void run() {
 		while (true) {
-					
+				this.setActual(this.getRecorrido().getEstaciones().get(0));	
 				for (Estacion estacion : this.getRecorrido().getEstaciones()) {
-					this.waitP();
+					//this.waitP();	
 					this.setAnterior(this.getActual());
 					this.setActual(estacion);
-					this.signal();
+					//this.signal();
 					this.simularPasoDelTiempo(400);
 					this.simularPasoPorEstacion(estacion);
 				}
 				System.out.println("Fin Del Recorrido:" + recorrido	+ " Del Tren:" + this);
 			}
 	}
-	/**
-	 * Libera el Permiso Del Semaforo
-	 */
-	public void signal() {
-		this.getPermiso().release();
-	}
-	/**
-	 * Pide Permiso Del Semaforo
-	 */
-	public void waitP() {
-		this.getPermiso().acquireUninterruptibly();
-	}
 
+	
 	/**
 	 * Simula el paso por una estacion, primero pide permiso para entrar y
 	 * despues simula un demora por carga de pasajeros que no son mas que sleeps
@@ -71,31 +58,36 @@ public class Tren extends Thread {
 		try {
 			//Paso A Esperar para Ingresar
 
-			this.waitP();
-			this.setEstado("Esperando Ingreso");
+			//this.waitP();
+			Impresor.get().agregarCambio(new Cambio(this, EstadoTrenEnum.EnMovimiento, this.anterior, this.actual, true));
+			this.setEstado(EstadoTrenEnum.EnMovimiento);
+			estacion.liberarPermisoDeIngreso(this.getAnden());
+			System.out.println("Tren:" + this + " Saliendo de Estacion:"+ estacion);
+			//this.signal();
+			
+			//this.waitP();
+			Impresor.get().agregarCambio(new Cambio(this, EstadoTrenEnum.EsperandoIngreso, this.anterior, this.actual, false));
+			this.setEstado(EstadoTrenEnum.EsperandoIngreso);
 			System.out.println("Tren:" + this + " Esperando Ingreso A Estacion: " + estacion);
-			this.signal();
+			//this.signal();
 			
 			estacion.pedirPermisoDeIngreso(this.getAnden());
 
 			//Paso a estado DETENIDO Y EN CARGA
-			this.waitP();
-			this.setEstado("Detenido En Estacion");
+			//this.waitP();
+			Impresor.get().agregarCambio(new Cambio(this, EstadoTrenEnum.DetenidoEnEstacion, this.anterior, this.actual, false));
+			this.setEstado(EstadoTrenEnum.DetenidoEnEstacion);
 			System.out.println("Tren:" + this + " Entrando a Estacion:" + estacion);
 			this.simularCargaDePasajeros();
 			//PASA A ESTADO EN MOVIMIENTO
-			this.signal();
+			//this.signal();
 			
-			this.waitP();
-			this.setEstado("En Movimiento");
-			estacion.liberarPermisoDeIngreso(this.getAnden());
-			System.out.println("Tren:" + this + " Saliendo de Estacion:"+ estacion);
-			this.signal();
+			
 			
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 			//PASA A ESTADO EN MOVIMIENTO
-			this.setEstado("En Movimiento");
+			this.setEstado(EstadoTrenEnum.EnMovimiento);
 			estacion.liberarPermisoDeIngreso(this.getAnden());
 			System.out.println("Choque En La Estacion:" + estacion);
 		}
@@ -103,14 +95,14 @@ public class Tren extends Thread {
 	
 	public String imprimir(){		
 		if(this.getAnden().equals(0)){
-			if(this.getEstado().equals("En Movimiento")){
+			if(this.getEstado().equals(EstadoTrenEnum.EnMovimiento)){
 				return " <" + this.getNumero() + "=";
 			}
 			else{
 				return " [" + this.getNumero() + "=";
 			}
 		}
-		else if(this.getEstado().equals("En Movimiento")){
+		else if(this.getEstado().equals(EstadoTrenEnum.EnMovimiento)){
 				return " =" + this.getNumero() + ">";
 			}
 		return " =" + this.getNumero() + "]";
@@ -146,8 +138,7 @@ public class Tren extends Thread {
 	}
 
 	public String imprimirSiDerechaEstacion(Estacion estacionT) {
-		// TODO Auto-generated method stub
-		if(!this.getEstado().equals("Detenido En Estacion") && this.estaALaDerechaDeEstacion(estacionT)){
+		if(!this.getEstado().equals(EstadoTrenEnum.DetenidoEnEstacion) && this.estaALaDerechaDeEstacion(estacionT)){
 			return this.imprimir();
 		}
 		return "";
@@ -161,8 +152,7 @@ public class Tren extends Thread {
 	}
 
 	public String imprimirSiEstanEnEstacion(Estacion estacionT) {
-		// TODO Auto-generated method stub
-		if(this.getEstado().equals("Detenido En Estacion") && this.estaEnEstacion(estacionT)){
+		if(this.getEstado().equals(EstadoTrenEnum.DetenidoEnEstacion) && this.estaEnEstacion(estacionT)){
 			return this.imprimir();
 		}
 		return "";
@@ -179,12 +169,6 @@ public class Tren extends Thread {
 	public void setNumero(String numero) {
 		this.numero = numero;
 	}
-	public Semaphore getPermiso() {
-		return permiso;
-	}
-	public void setPermiso(Semaphore permiso) {
-		this.permiso = permiso;
-	}
 	public Estacion getAnterior() {
 		return anterior;
 	}
@@ -197,10 +181,10 @@ public class Tren extends Thread {
 	public void setActual(Estacion actual) {
 		this.actual = actual;
 	}
-	public String getEstado() {
+	public EstadoTrenEnum getEstado() {
 		return estado;
 	}
-	public void setEstado(String estado) {
+	public void setEstado(EstadoTrenEnum estado) {
 		this.estado = estado;
 	}
 	public Recorrido getRecorrido() {
