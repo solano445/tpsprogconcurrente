@@ -6,8 +6,9 @@ import java.util.concurrent.Semaphore;
 public class Estacion{
 
 	//Variables
-	private String nombre;
+	public String nombre;
 	private Semaphore[] permisos;
+	public Integer cantAndenes;
 
 	//Constructor
 	/**
@@ -18,6 +19,7 @@ public class Estacion{
 		this.permisos[0] = new Semaphore(cantAndenes, true);
 		this.permisos[1] = new Semaphore(cantAndenes, true);
 		this.nombre = nombre;
+		this.cantAndenes=cantAndenes;
 	}
 
 	//Metodos

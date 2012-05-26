@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import model.Impresor.EstacionI;
+import model.Impresor.TrenEstado;
+
 /**
  * Clase para simular los recorridos
  * @author Tyno
@@ -11,8 +14,6 @@ import java.util.List;
  */
 public class Simulador {
 	//Variables
-	private Recorrido berazateguiAOnce;
-	private Recorrido OnceABerazategui;
 	private Recorrido bosquesAConstitucion;
 	private Recorrido constitucionBosques;
 	private Estacion berazategui;
@@ -23,41 +24,31 @@ public class Simulador {
 	//Constructor
 	public Simulador(){
 		this.crearEstaciones();
-		this.crearRecorridoBerazateguiConstitucion();
-		this.crearRecorridoConstitucionBerazategui();
-		this.crearRecorridoBosquesConstitucion();
 		this.crearRecorridoConstitucionBosques();
-	}
-	
-	public void crearRecorridoConstitucionBerazategui(){
-		List<Estacion> estaciones= new ArrayList<Estacion>();
-		estaciones.add(this.constitucion);
-		estaciones.add(this.quilmes);
-		estaciones.add(this.berazategui);
-		this.OnceABerazategui = new Recorrido("Constitucion A Berazategui" , estaciones);
-	}
-	public void crearRecorridoBerazateguiConstitucion(){
-		List<Estacion> estaciones= new ArrayList<Estacion>();
-		estaciones.add(this.berazategui);
-		estaciones.add(this.quilmes);
-		estaciones.add(this.constitucion);
-		this.berazateguiAOnce = new Recorrido("Berazategui A Constitucion" , estaciones);
-	}
-	public void crearRecorridoBosquesConstitucion(){
-		List<Estacion> estaciones= new ArrayList<Estacion>();
-		estaciones.add(this.bosques);
-		estaciones.add(this.berazategui);
-		estaciones.add(this.quilmes);
-		estaciones.add(this.constitucion);
-		this.bosquesAConstitucion = new Recorrido("Bosques A Constitucion" , estaciones);
+		this.crearRecorridoBosquesConstitucion();
 	}
 	public void crearRecorridoConstitucionBosques(){
 		List<Estacion> estaciones= new ArrayList<Estacion>();
+		List<EstacionI> estacionesImpresor = Impresor.get().estaciones;
+		
 		estaciones.add(this.constitucion);
+		estacionesImpresor.add(Impresor.get().new EstacionI(this.constitucion));
 		estaciones.add(this.quilmes);
+		estacionesImpresor.add(Impresor.get().new EstacionI(this.quilmes));
 		estaciones.add(this.berazategui);
+		estacionesImpresor.add(Impresor.get().new EstacionI(this.berazategui));
 		estaciones.add(this.bosques);
+		estacionesImpresor.add(Impresor.get().new EstacionI(this.bosques));
 		this.constitucionBosques = new Recorrido("Constitucion A Bosques" , estaciones);
+	}
+	public void crearRecorridoBosquesConstitucion(){
+		List<Estacion> estaciones= new ArrayList<Estacion>();
+		
+		estaciones.add(this.bosques);
+		estaciones.add(this.berazategui);
+		estaciones.add(this.quilmes);
+		estaciones.add(this.constitucion);
+		this.constitucionBosques = new Recorrido("Bosques A Constitucion" , estaciones);
 	}
 
 	public void crearEstaciones() {
@@ -66,13 +57,10 @@ public class Simulador {
 		constitucion = new Estacion("Constitucion", 1);
 		bosques = new Estacion("Bosques", 1);
 	}
-	public  Recorrido recorridoTrenRoca(){
-		return berazateguiAOnce;
+	public  Recorrido recorrido(){
+		return constitucionBosques;
 	}
-	public  Recorrido recorridoTrenBelgrano(){
-		return OnceABerazategui;
-	}
-	public Recorrido recorridoTrenSarmiento(){
+	public  Recorrido recorridoInverso(){
 		return bosquesAConstitucion;
 	}
 	public static void main(String[] args) {
@@ -82,13 +70,20 @@ public class Simulador {
 		List<Tren> trenes = new LinkedList<Tren>();
 		
 		//Creo Los trenes e inicio la simulacion.
-		Tren belgrano = new Tren("Belgrano", simulador.recorridoTrenBelgrano() , 1);
-		Tren roca = new Tren("Roca", simulador.recorridoTrenBelgrano() , 0);
-		Tren sarmiento = new Tren("Sarmiento", simulador.recorridoTrenBelgrano() , 1);
-		Tren sanMartin = new Tren("San Martin", simulador.recorridoTrenBelgrano() , 0);
-		Tren rosas = new Tren("Rosas", simulador.recorridoTrenBelgrano() , 0);
-		Tren mitre = new Tren("Mitre", simulador.recorridoTrenBelgrano() , 1);
-		Tren jd = new Tren("Juan Domingo", simulador.recorridoTrenBelgrano() , 1);
+		Tren belgrano = new Tren("Belgrano", simulador.recorrido() , 1);
+		Impresor.get().estaciones.get(0).enMovimientoLlendoHaciaEstacionAnden1.add(Impresor.get().new TrenEstado(belgrano, EstadoTrenEnum.Detenido));
+		Tren roca = new Tren("Roca", simulador.recorrido() , 0);
+		Impresor.get().estaciones.get(Impresor.get().estaciones.size()-1).enMovimientoLlendoHaciaEstacionAnden0.add(Impresor.get().new TrenEstado(roca, EstadoTrenEnum.Detenido));
+		Tren sarmiento = new Tren("Sarmiento", simulador.recorrido() , 1);
+		Impresor.get().estaciones.get(0).enMovimientoLlendoHaciaEstacionAnden1.add(Impresor.get().new TrenEstado(sarmiento, EstadoTrenEnum.Detenido));
+		Tren sanMartin = new Tren("San Martin", simulador.recorrido() , 0);
+		Impresor.get().estaciones.get(Impresor.get().estaciones.size()-1).enMovimientoLlendoHaciaEstacionAnden0.add(Impresor.get().new TrenEstado(sanMartin, EstadoTrenEnum.Detenido));
+		Tren rosas = new Tren("Rosas", simulador.recorrido() , 0);
+		Impresor.get().estaciones.get(Impresor.get().estaciones.size()-1).enMovimientoLlendoHaciaEstacionAnden0.add(Impresor.get().new TrenEstado(rosas, EstadoTrenEnum.Detenido));
+		Tren mitre = new Tren("Mitre", simulador.recorrido() , 1);
+		Impresor.get().estaciones.get(0).enMovimientoLlendoHaciaEstacionAnden1.add(Impresor.get().new TrenEstado(mitre, EstadoTrenEnum.Detenido));
+		Tren jd = new Tren("Juan Domingo", simulador.recorrido() , 1);
+		Impresor.get().estaciones.get(0).enMovimientoLlendoHaciaEstacionAnden1.add(Impresor.get().new TrenEstado(jd, EstadoTrenEnum.Detenido));
 		
 		trenes.add(belgrano);
 		trenes.add(roca);
@@ -98,65 +93,12 @@ public class Simulador {
 		trenes.add(mitre);
 		trenes.add(jd);
 		
-		
-		simulador.iniciarTrenes(trenes);
-		
-		
-		while(true){
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			
-			simulador.congelarTrenes(trenes);
-
-			String pantallazo = "";
-			for(Estacion estacionT:simulador.recorridoTrenBelgrano().getEstaciones()){
-				pantallazo += " (| " + estacionT + simulador.trenesEnEstacion(estacionT, trenes) + " |)" + simulador.trenesDerechaDeEstacion(estacionT, trenes);
-			}
-			
-			System.out.println("\n" + pantallazo + "\n" );
-			
-			simulador.desCongelarTrenes(trenes);
-			
-		}
-	}
-
-	private String trenesDerechaDeEstacion(Estacion estacionT, List<Tren> trenes) {
-		String res = "";
-		for(Tren trenT:trenes){
-			res += trenT.imprimirSiDerechaEstacion(estacionT);
-		}
-		return res;
-	}
-
-	private String trenesEnEstacion(Estacion estacionT, List<Tren> trenes) {
-		String res = "";
-		for(Tren trenT:trenes){
-			res += trenT.imprimirSiEstanEnEstacion(estacionT);
-		}
-		return res;
-	}
-
-	private void iniciarTrenes(List<Tren> trenes) {
+		Impresor.get().start();
 		for(Tren tren:trenes){
 			tren.start();
-		}		
-	}
-	
-	private void congelarTrenes(List<Tren> trenes) {
-		for(Tren tren:trenes){
-			tren.waitP();
 		}
+		
 	}
 	
 
-	
-	private void desCongelarTrenes(List<Tren> trenes) {
-		for(Tren tren:trenes){
-			tren.signal();
-		}
-	}
-	
 }
