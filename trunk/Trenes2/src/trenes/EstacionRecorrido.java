@@ -2,15 +2,15 @@ package trenes;
 
 public class EstacionRecorrido {
 	
-	public EstacionConcreta estCncrt;
+	public EstacionConcreta estacionConcreta;
 	public EstacionRecorrido sigEstRecSenA;
 	public EstacionRecorrido sigEstRecSenB;
 	
 	public EstacionRecorrido(EstacionConcreta estacion){
-		this.estCncrt = estacion;
+		this.estacionConcreta = estacion;
 	}
 	
 	public String getNombre(){
-		return this.estCncrt.nombre;
+		return this.estacionConcreta.nombre;
 	}
 }
