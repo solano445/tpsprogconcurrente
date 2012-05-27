@@ -3,6 +3,9 @@ package trenes;
 import java.util.LinkedList;
 import java.util.List;
 
+import vista.EstadoTemporal;
+import vista.VistaEstacion;
+
 import estadosYSentidos.*;
 
 
@@ -20,16 +23,20 @@ public class Tren extends Thread{
 	public void run(){
 		while(!Simulador.terminaSimulacion){
 			this.estadoActual.run();
-			this.estadoActual = this.estadoActual.getNext();
+			this.estadoActual = this.estadoActual.siguienteEstado();
 		}
-		
 	}
-
+	//Constructor
 	public Tren(String nombreP, Recorrido recorrido, Sentido sentidoP){
 		this.nombre = nombreP;
 		this.estadoActual = this.enMovimiento;
 		this.sentido = sentidoP;
 		this.estActual = this.sentido.primerEstacionRecorrido(recorrido);
+		
+		EstacionRecorrido estacionAnterior = this.sentido.estacionAnterior(this.estActual);
+		VistaEstacion vistaAnterior = estacionAnterior.estacionConcreta.vistaEstacion;
+		vistaAnterior.enEstacion.add(new EstadoTemporal(this));
+		//this.sentido.crearVistaTrenMovimiento(this.estActual.estacionConcreta.vistaEstacion, this);
 	}
 	
 	public String toString(){
@@ -55,7 +62,7 @@ public class Tren extends Thread{
 		System.out.print("\n");
 	}
 
-	public void circular(long tiempo) {
+	public void dormir(long tiempo) {
 		try {sleep(tiempo);} catch (InterruptedException e) {e.printStackTrace();}		
 	}
 
@@ -63,4 +70,7 @@ public class Tren extends Thread{
 		this.estActual = this.sentido.siguienteEstacion(this.estActual);
 	}
 
+	public EstacionConcreta getEstacionActual(){
+		return this.estActual.estacionConcreta;
+	}
 }
