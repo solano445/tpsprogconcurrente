@@ -52,8 +52,9 @@ public class Pantalla extends Thread{
 	}
 
 	public synchronized void agregarCambio(Cambio cambio) {
+		System.out.println("se agrega cambio - " + this.cambios.size());
 		this.cambios.add(cambio);
-		this.notify();
+		notify();
 	}
 	
 	
