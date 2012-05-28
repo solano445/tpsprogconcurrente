@@ -37,15 +37,15 @@ public class Tren extends Thread{
 	}
 	
 	public String toString(){
-		return "[" + this.nombre + "]";
+		return this.sentido.trenToString(this);
 	}
 	
 	public static List<Tren> getTrenes(Recorrido recorrido){
 		List<Tren> trenes = new LinkedList<Tren>();
-		for (int i = 1; i < 2; i++) {
+		for (int i = 1; i < 6; i++) {
 			trenes.add(new Tren("Unidad" + i, recorrido , Sentido.getA()));
 		}
-		for (int i = 6; i < 7; i++) {
+		for (int i = 6; i < 11; i++) {
 			trenes.add(new Tren("Unidad" + i, recorrido , Sentido.getB()));
 		}
 		return trenes;		
