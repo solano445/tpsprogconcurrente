@@ -25,15 +25,21 @@ public class Pantalla extends Thread{
 
 	public synchronized void imprimirCambios() {
 		if (cambios.isEmpty()) {
+			System.out.println("No hay cambios");
 			try {this.wait();} catch (InterruptedException e) {e.printStackTrace();}
 		} else {
-			this.imprimirVistas();
 			for (Cambio cambio : this.cambios) {
 				cambio.plasmar(this);
-				this.imprimirCambios();
+				this.imprimirVistas();
 			}
 			this.cambios.clear();
 		}
+	}
+	
+	public synchronized void iniciarEsperandoIngreso(Tren tren) {
+		VistaEstacion vista = tren.estActual.estacionConcreta.vistaEstacion;
+		System.out.println("Se inicia en estado en movimiento " + tren.nombre + " - " + vista.estacion.nombre);
+		tren.sentido.iniciarEnMovimiento(vista, tren);
 	}
 	
 	
@@ -71,12 +77,21 @@ public class Pantalla extends Thread{
 	 * @param Tren tren
 	 * @return EstadoTemporal
 	 */
-	public static EstadoTemporal devolverEstado(List<EstadoTemporal> esperandoSentidoA,	Tren tren) {
-		for (EstadoTemporal estadoTemporal : esperandoSentidoA) {
+	public static EstadoTemporal devolverEstado(List<EstadoTemporal> estadoSentido,	Tren tren) {
+		for (EstadoTemporal estadoTemporal : estadoSentido) {
 			if(estadoTemporal.tren.equals(tren)){
 				return estadoTemporal;
 			}
 		}
-		throw new RuntimeException("No Existe el estado temporal para el tren: " + tren);
+		throw new RuntimeException("No Existe el estado temporal para el tren: " + tren + "en lista" + estadoSentido);
+	}
+	public static EstadoTemporal devolverEstado(List<EstadoTemporal> estadoSentido,	Tren tren, String nombreEstacon) {
+		System.out.println("Listar " + nombreEstacon + " - " + estadoSentido);
+		for (EstadoTemporal estadoTemporal : estadoSentido) {
+			if(estadoTemporal.tren.equals(tren)){
+				return estadoTemporal;
+			}
+		}
+		throw new RuntimeException("No Existe el estado temporal para el tren: " + tren + "en Vista" + nombreEstacon);
 	}
 }

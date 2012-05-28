@@ -21,6 +21,10 @@ public class CambioEsperandoIngreso extends Cambio {
 		this.tren.sentido.crearEsperando(vista, this.tren);
 		
 	}
-	
+
+	@Override
+	public String toStringTemplate() {
+		return "EsperandoIngreso";
+	}
 
 }

@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import vista.EstadoTemporal;
+import vista.Pantalla;
 import vista.VistaEstacion;
 
 import estadosYSentidos.*;
@@ -29,14 +30,10 @@ public class Tren extends Thread{
 	//Constructor
 	public Tren(String nombreP, Recorrido recorrido, Sentido sentidoP){
 		this.nombre = nombreP;
-		this.estadoActual = this.enMovimiento;
+		this.estadoActual = this.esperandoIngreso;
 		this.sentido = sentidoP;
 		this.estActual = this.sentido.primerEstacionRecorrido(recorrido);
-		
-		EstacionRecorrido estacionAnterior = this.sentido.estacionAnterior(this.estActual);
-		VistaEstacion vistaAnterior = estacionAnterior.estacionConcreta.vistaEstacion;
-		vistaAnterior.enEstacion.add(new EstadoTemporal(this));
-		//this.sentido.crearVistaTrenMovimiento(this.estActual.estacionConcreta.vistaEstacion, this);
+		Pantalla.getInstance().iniciarEsperandoIngreso(this);		
 	}
 	
 	public String toString(){
@@ -45,10 +42,10 @@ public class Tren extends Thread{
 	
 	public static List<Tren> getTrenes(Recorrido recorrido){
 		List<Tren> trenes = new LinkedList<Tren>();
-		for (int i = 1; i < 6; i++) {
+		for (int i = 1; i < 2; i++) {
 			trenes.add(new Tren("Unidad" + i, recorrido , Sentido.getA()));
 		}
-		for (int i = 6; i < 11; i++) {
+		for (int i = 6; i < 7; i++) {
 			trenes.add(new Tren("Unidad" + i, recorrido , Sentido.getB()));
 		}
 		return trenes;		

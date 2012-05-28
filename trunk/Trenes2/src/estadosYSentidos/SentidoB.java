@@ -38,7 +38,7 @@ public class SentidoB extends Sentido {
 	}
 
 	@Override
-	public void crearEnMovimiento(VistaEstacion vista, Tren tren) {
+	public void iniciarEnMovimiento(VistaEstacion vista, Tren tren) {
 		vista.enMovimientoLlendoHaciaEstacionSentidoB.add(new EstadoTemporal(tren));
 	}
 	
@@ -50,7 +50,8 @@ public class SentidoB extends Sentido {
 
 	@Override
 	public void removeFromMovimiento(VistaEstacion vista, Tren tren) {
-		vista.enMovimientoLlendoHaciaEstacionSentidoB.remove(Pantalla.devolverEstado(vista.enMovimientoLlendoHaciaEstacionSentidoB, tren));
+		EstadoTemporal estadoTemporal = Pantalla.devolverEstado(vista.enMovimientoLlendoHaciaEstacionSentidoB, tren, vista.estacion.nombre);
+		vista.enMovimientoLlendoHaciaEstacionSentidoB.remove(estadoTemporal);
 	}
 	
 	@Override

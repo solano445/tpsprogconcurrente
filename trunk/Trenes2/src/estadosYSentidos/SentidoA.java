@@ -39,19 +39,19 @@ public class SentidoA extends Sentido  {
 	}
 
 	@Override
-	public void crearEnMovimiento(VistaEstacion vista, Tren tren) {
+	public void iniciarEnMovimiento(VistaEstacion vista, Tren tren) {
+		//System.out.println("Se agrega en enmovimientoSentidoA de estacion");
 		vista.enMovimientoLlendoHaciaEstacionSentidoA.add(new EstadoTemporal(tren));
 	}
 
 	@Override
 	public void crearEsperando(VistaEstacion vista, Tren tren) {
-		vista.esperandoSentidoA.add(new EstadoTemporal(tren));
-		
+		vista.esperandoSentidoA.add(new EstadoTemporal(tren));		
 	}
 
 	@Override
 	public void removeFromMovimiento(VistaEstacion vista, Tren tren) {
-		vista.enMovimientoLlendoHaciaEstacionSentidoA.remove(Pantalla.devolverEstado(vista.enMovimientoLlendoHaciaEstacionSentidoA, tren));
+		vista.enMovimientoLlendoHaciaEstacionSentidoA.remove(Pantalla.devolverEstado(vista.enMovimientoLlendoHaciaEstacionSentidoA, tren, vista.estacion.nombre));
 	}
 
 	@Override
