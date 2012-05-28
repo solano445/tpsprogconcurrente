@@ -22,9 +22,13 @@ public class CambioEnMovimiento extends Cambio {
 		vista.enEstacion.remove(Pantalla.devolverEstado(vistaAnterior.enEstacion, tren));
 		
 		//crear nuevo estado temporal
-		this.tren.sentido.crearEnMovimiento(vista, this.tren);
+		this.tren.sentido.iniciarEnMovimiento(vista, this.tren);
 		
 	}
 
+	@Override
+	public String toStringTemplate() {
+		return "EnMovimiento";
+	}
 
 }

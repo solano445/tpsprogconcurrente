@@ -13,10 +13,10 @@ public class Simulador {
 		Recorrido recorrido = Recorrido.getRecorrido();	
 		List<Tren> trenes = Tren.getTrenes(recorrido);
 		//Recorrido.testearGetRecorrido(recorrido);
-		pantalla.start();
 		for(Tren tren:trenes){
 			tren.start();
 		}
+		pantalla.start();
 		/**
 		 * agregar a las personas
 		 */

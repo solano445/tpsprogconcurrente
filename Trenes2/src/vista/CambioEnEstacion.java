@@ -21,4 +21,9 @@ public class CambioEnEstacion extends Cambio {
 		vista.enEstacion.add(new EstadoTemporal(tren));
 	}
 
+	@Override
+	public String toStringTemplate() {
+		return "EnEstacion";
+	}
+
 }

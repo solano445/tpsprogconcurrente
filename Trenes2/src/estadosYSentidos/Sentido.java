@@ -22,7 +22,7 @@ abstract public class Sentido {
 	abstract public void liberarPermiso(EstacionConcreta estacionActual);
 	abstract public void crearVistaTrenMovimiento(VistaEstacion vistaEstacion, Tren tren);
 	abstract public void removeFromEsperando(VistaEstacion vista, Tren tren);
-	abstract public void crearEnMovimiento(VistaEstacion vista, Tren tren);
+	abstract public void iniciarEnMovimiento(VistaEstacion vista, Tren tren);
 	abstract public void crearEsperando(VistaEstacion vista, Tren tren);
 	abstract public void removeFromMovimiento(VistaEstacion vista, Tren tren);
 	abstract public EstacionRecorrido estacionAnterior(EstacionRecorrido estacion);

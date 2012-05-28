@@ -15,9 +15,9 @@ public class EsperandoIngreso extends EstadoTren {
 		this.pantalla.agregarCambio(new CambioEsperandoIngreso(this.tren));
 		//otra cosa
 				
-		System.out.println(this.tren.toString() + " Entrando a " + this.tren.estActual.getNombre());
+		//##System.out.println(this.tren.toString() + " Entrando a " + this.tren.estActual.getNombre());
 		this.tren.sentido.solicitarPermiso(this.tren.getEstacionActual());
-		System.out.println(this.tren.toString() + " Entro en " + this.tren.estActual.getNombre());
+		//##System.out.println(this.tren.toString() + " Entro en " + this.tren.estActual.getNombre());
 	}
 
 	@Override

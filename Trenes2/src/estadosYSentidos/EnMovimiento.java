@@ -16,7 +16,7 @@ public class EnMovimiento extends EstadoTren {
 		//otra cosa
 				
 		//simula el tiempo de circulacion del tren sobre la via
-		System.out.println(this.tren.toString() + " circulando hacia " + this.tren.estActual.getNombre());
+		//##System.out.println(this.tren.toString() + " circulando hacia " + this.tren.estActual.getNombre());
 		this.tren.dormir(300);
 	}
 
