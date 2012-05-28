@@ -38,11 +38,6 @@ public class SentidoA extends Sentido  {
 		vista.esperandoSentidoA.remove(Pantalla.devolverEstado(vista.esperandoSentidoA, tren));
 	}
 
-	@Override
-	public void iniciarEnMovimiento(VistaEstacion vista, Tren tren) {
-		//System.out.println("Se agrega en enmovimientoSentidoA de estacion");
-		vista.enMovimientoLlendoHaciaEstacionSentidoA.add(new EstadoTemporal(tren));
-	}
 
 	@Override
 	public void crearEsperando(VistaEstacion vista, Tren tren) {
@@ -57,6 +52,11 @@ public class SentidoA extends Sentido  {
 	@Override
 	public EstacionRecorrido estacionAnterior(EstacionRecorrido estacion) {
 		return estacion.sigEstRecSenB;
+	}
+
+	@Override
+	public String trenToString(Tren tren) {
+		return "[" + tren.nombre + ">>]";		
 	}
 
 
