@@ -51,14 +51,14 @@ public class Pantalla extends Thread{
 	
 	
 
-	public void imprimirVistas() {
+	public  synchronized void imprimirVistas() {
 		for (VistaEstacion vista : this.vistaEstaciones) {
 			vista.imprimir();
 		}
 		System.out.println("");
 	}
 
-	public synchronized void agregarCambio(Cambio cambio) {
+	public  synchronized void agregarCambio(Cambio cambio) {
 		//System.out.println("se agrega cambio - " + this.cambios.size());
 		this.cambios.add(cambio);
 		//System.out.println("se agrega cambio" + cambio.toStringTemplate());
