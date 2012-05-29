@@ -3,11 +3,12 @@ package trenes;
 import java.util.LinkedList;
 import java.util.List;
 
-import vista.EstadoTemporal;
 import vista.Pantalla;
-import vista.VistaEstacion;
-
-import estadosYSentidos.*;
+import estadosYSentidos.EnEstacion;
+import estadosYSentidos.EnMovimiento;
+import estadosYSentidos.EsperandoIngreso;
+import estadosYSentidos.EstadoTren;
+import estadosYSentidos.Sentido;
 
 
 public class Tren extends Thread{

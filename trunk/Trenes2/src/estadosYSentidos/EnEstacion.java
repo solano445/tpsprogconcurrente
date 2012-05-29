@@ -1,7 +1,6 @@
 package estadosYSentidos;
 
-import trenes.*;
-import vista.Cambio;
+import trenes.Tren;
 import vista.CambioEnEstacion;
 
 public class EnEstacion extends EstadoTren {
