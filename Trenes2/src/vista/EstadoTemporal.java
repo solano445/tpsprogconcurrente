@@ -1,6 +1,5 @@
 package vista;
 
-import estadosYSentidos.EstadoTren;
 import trenes.Tren;
 
 public class EstadoTemporal {
