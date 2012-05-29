@@ -34,24 +34,26 @@ public class EstacionConcreta {
 	
 	
 	//Metodos
-	public void pedirPermisoIngresoSentido(Integer cantAndenesOcupadosSentido, Condition condicion){
-		if(!(cantAndenesOcupadosSentido<cantAndenes)){
-			try {condicion.await();} catch (InterruptedException e) {e.printStackTrace();}
-		}
-		else{
-			cantAndenesOcupadosSentido++;
-		}
-	}
 	
 	public void pedirPermisoIngresoSentidoA(){
 		lockAndenA.lock();
-		pedirPermisoIngresoSentido(this.cantAndenesOcupadosSentidoA, this.andenA);
+		if(!(this.cantAndenesOcupadosSentidoA<cantAndenes)){ 
+			try {this.andenA.await();} catch (InterruptedException e) {e.printStackTrace();}
+		}
+		else{
+			this.cantAndenesOcupadosSentidoA++;
+		}
 		lockAndenA.unlock();
 	}
 	
 	public void pedirPermisoIngresoSentidoB(){
 		lockAndenB.lock();
-		pedirPermisoIngresoSentido(this.cantAndenesOcupadosSentidoB, this.andenB);
+		if(!(this.cantAndenesOcupadosSentidoB<cantAndenes)){ 
+			try {this.andenB.await();} catch (InterruptedException e) {e.printStackTrace();}
+		}
+		else{
+			this.cantAndenesOcupadosSentidoB++;
+		}
 		lockAndenB.unlock();
 	}
 	public void liberarPermisoIngresoSentidoA(){
