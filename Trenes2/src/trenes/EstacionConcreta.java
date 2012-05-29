@@ -37,46 +37,37 @@ public class EstacionConcreta {
 	
 	public void pedirPermisoIngresoSentidoA(){
 		lockAndenA.lock();
-		
-		if(!(this.cantAndenesOcupadosSentidoA<cantAndenes)){ 
+		//pedirPermisoIngresoSentido(this.cantAndenesOcupadosSentidoA, this.andenA);
+		if(!(this.cantAndenesOcupadosSentidoA<cantAndenes)){
 			try {this.andenA.await();} catch (InterruptedException e) {e.printStackTrace();}
 		}
 		else{
 			this.cantAndenesOcupadosSentidoA++;
-			System.out.println("Permiso Otorgado En Anden A " + this.nombre);
 		}
 		lockAndenA.unlock();
 	}
 	
 	public void pedirPermisoIngresoSentidoB(){
 		lockAndenB.lock();
-		if(!(this.cantAndenesOcupadosSentidoB<cantAndenes)){ 
-			try {this.andenB.await();} catch (InterruptedException e) {e.printStackTrace();}
+		//pedirPermisoIngresoSentido(this.cantAndenesOcupadosSentidoB, this.andenB);
+		if(!(this.cantAndenesOcupadosSentidoB<cantAndenes)){
+		try {this.andenB.await();} catch (InterruptedException e) {e.printStackTrace();}
 		}
 		else{
 			this.cantAndenesOcupadosSentidoB++;
-			System.out.println("Permiso Otorgado En Anden B " + this.nombre);
 		}
 		lockAndenB.unlock();
 	}
 	public void liberarPermisoIngresoSentidoA(){
 		lockAndenA.lock();
-		if(cantAndenesOcupadosSentidoA<1){
-			throw new RuntimeException("Se Esta Intentando Liberar mas andenes de los que hay. SENTIDO A " + this.nombre);
-		}
 		this.cantAndenesOcupadosSentidoA--;
-		System.out.println("Permiso Liberado En Anden A " + this.nombre);
 		this.andenA.signal();
 		lockAndenA.unlock();
 	}
 	
 	public void liberarPermisoIngresoSentidoB(){
 		lockAndenB.lock();
-		if(cantAndenesOcupadosSentidoB<1){
-			throw new RuntimeException("Se Esta Intentando Liberar mas andenes de los que hay. SENTIDO B " + this.nombre);
-		}
 		this.cantAndenesOcupadosSentidoB--;
-		System.out.println("Permiso Liberado En Anden B " + this.nombre);
 		this.andenB.signal();
 		lockAndenB.unlock();
 	}

@@ -40,6 +40,11 @@ public class VistaEstacion {
 			System.out.print(et + " ");
 		}
 		System.out.print("\n" + this.estacion.nombre +" <#"+ this.estacion.cantAndenes + "> (#" + this.cantPasajeros + ") ");
+		//TODO
+		if(this.enEstacion.size() > 2){
+			System.out.print("#####");
+		}
+		
 		for (EstadoTemporal et : this.enEstacion) {
 			System.out.print(et + " ");
 		}
