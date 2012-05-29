@@ -25,7 +25,7 @@ public class Simulador {
 		for(Tren tren:trenes){
 			tren.start();
 		}
-		pantalla.start();
+		//pantalla.start();
 		//agregar a las personas
 		 	
 	}
