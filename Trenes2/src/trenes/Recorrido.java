@@ -21,6 +21,7 @@ public class Recorrido{
 	
 	public void agregarEstacion(EstacionConcreta estacion){
 		EstacionRecorrido nuevaEstacion = new EstacionRecorrido(estacion);
+		estacion.agregarEstacionRecorrido(nuevaEstacion);
 		this.priEstSenB.sigEstRecSenA = nuevaEstacion;
 		this.priEstSenA.sigEstRecSenB = nuevaEstacion;
 		nuevaEstacion.sigEstRecSenA = this.priEstSenA;

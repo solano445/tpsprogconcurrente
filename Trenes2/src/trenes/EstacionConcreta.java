@@ -21,6 +21,7 @@ public class EstacionConcreta {
     public Condition andenB = lockAndenB.newCondition();
     
     public VistaEstacion vistaEstacion;
+	public EstacionRecorrido estacionRecorrido;
     
 	//Constructor
 	public EstacionConcreta(String nombreP , Integer cantAndenesP, Integer esperaEnMilisegundosP) {
@@ -58,6 +59,7 @@ public class EstacionConcreta {
 		}
 		lockAndenB.unlock();
 	}
+	
 	public void liberarPermisoIngresoSentidoA(){
 		lockAndenA.lock();
 		this.cantAndenesOcupadosSentidoA--;
@@ -72,8 +74,6 @@ public class EstacionConcreta {
 		lockAndenB.unlock();
 	}
 
-
-
 	public Tren viajarHasta(EstacionConcreta estacionDestino) {
 		//lock.lock();
 		//agarra la lista de trenes y da el tren que mas rapido llegue a la estacion que se
@@ -81,6 +81,10 @@ public class EstacionConcreta {
 		//tren.abordarPersonaConDestino(estacionDestino); este metodo duerme a los pasajeros y los despierta en la estacion
 		//lock.unlock();
 		return null;
+	}
+
+	public void agregarEstacionRecorrido(EstacionRecorrido nuevaEstacion) {
+		this.estacionRecorrido = nuevaEstacion;		
 	}
 	
 	
