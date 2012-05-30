@@ -71,6 +71,17 @@ public class EstacionConcreta {
 		this.andenB.signal();
 		lockAndenB.unlock();
 	}
+
+
+
+	public Tren viajarHasta(EstacionConcreta estacionDestino) {
+		//lock.lock();
+		//agarra la lista de trenes y da el tren que mas rapido llegue a la estacion que se
+		//Tren tren= this.obtenerTren(estacionDestino)
+		//tren.abordarPersonaConDestino(estacionDestino); este metodo duerme a los pasajeros y los despierta en la estacion
+		//lock.unlock();
+		return null;
+	}
 	
 	
 
