@@ -35,7 +35,7 @@ public class TestEstacionRecorrido {
 		this.recorrido.agregarEstacion(est2);
 		this.recorrido.agregarEstacion(est3);
 		this.recorrido.agregarEstacion(est4);
-		Recorrido.crearVistas(this.recorrido);		
+		Recorrido.crearVistas(this.recorrido);	
 	}
 	
 	@Test
