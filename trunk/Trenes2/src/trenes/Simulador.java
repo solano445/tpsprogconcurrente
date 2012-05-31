@@ -21,6 +21,7 @@ public class Simulador {
 		Pantalla pantalla = Pantalla.getInstance();
 		Recorrido recorrido = Recorrido.getRecorrido();
 		List<Tren> trenes = Tren.getTrenes(recorrido);
+		new Pasajero("Pepe" , Recorrido.estaciones[1] ,Recorrido.estaciones[2]).start();
 		//Recorrido.testearGetRecorrido(recorrido);
 		for(Tren tren:trenes){
 			tren.start();

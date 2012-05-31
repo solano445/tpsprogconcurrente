@@ -2,6 +2,9 @@ package trenes;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import vista.Pantalla;
 import estadosYSentidos.EnEstacion;
@@ -20,7 +23,12 @@ public class Tren extends Thread{
 	public EnEstacion enEstacion = new EnEstacion(this);
 	public Sentido sentido;
 	public String nombre;
-	
+	public Lock lockTrenViaje= new ReentrantLock(true);
+	public Condition pasajerosViajando = lockTrenViaje.newCondition();
+	public Condition pasajerosAbordando = lockTrenViaje.newCondition();
+	public Integer cantPasajerosMax;
+	public Integer cantPasajerosAbordo;
+	public List<Pasajero>  pasajerosABordo;
 
 	public void run(){
 		while(!Simulador.terminaSimulacion){
@@ -28,11 +36,15 @@ public class Tren extends Thread{
 			this.estadoActual = this.estadoActual.siguienteEstado();
 		}
 	}
+	
 	//Constructor
-	public Tren(String nombreP, Recorrido recorrido, Sentido sentidoP){
+	public Tren(String nombreP, Integer cantMax, Recorrido recorrido, Sentido sentidoP){
 		this.nombre = nombreP;
+		this.cantPasajerosAbordo=0;
+		this.cantPasajerosMax=cantMax;
 		this.estadoActual = this.esperandoIngreso;
 		this.sentido = sentidoP;
+		this.pasajerosABordo= new LinkedList<Pasajero>();
 		this.estActual = this.sentido.primerEstacionRecorrido(recorrido);
 		Pantalla.getInstance().iniciarEsperandoIngreso(this);		
 	}
@@ -44,10 +56,10 @@ public class Tren extends Thread{
 	public static List<Tren> getTrenes(Recorrido recorrido){
 		List<Tren> trenes = new LinkedList<Tren>();
 		for (int i = 1; i < 6; i++) {
-			trenes.add(new Tren("Unidad" + i, recorrido , Sentido.getA()));
+			trenes.add(new Tren("Unidad" + i, (i%3*10)+20 ,recorrido , Sentido.getA()));
 		}
 		for (int i = 6; i < 11; i++) {
-			trenes.add(new Tren("Unidad" + i, recorrido , Sentido.getB()));
+			trenes.add(new Tren("Unidad" + i, (i%3*10)+20 ,recorrido , Sentido.getB()));
 		}
 		return trenes;		
 	}

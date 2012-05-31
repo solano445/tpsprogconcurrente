@@ -56,7 +56,7 @@ public class SentidoA extends Sentido  {
 
 	@Override
 	public String trenToString(Tren tren) {
-		return "[" + tren.nombre + ">>]";		
+		return "[" + tren.nombre + "(#" + tren.cantPasajerosAbordo +"/"+ tren.cantPasajerosMax +")" + ">>]";		
 	}
 
 
