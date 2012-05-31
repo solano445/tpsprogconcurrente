@@ -18,8 +18,8 @@ abstract public class Sentido {
 	public static Sentido getB() {
 		return new SentidoB();
 	}
-	abstract public void solicitarPermiso(EstacionConcreta estacionActual);
-	abstract public void liberarPermiso(EstacionConcreta estacionActual);
+	abstract public void solicitarPermiso(EstacionConcreta estacionActual, Tren tren);
+	abstract public void liberarPermiso(EstacionConcreta estacionActual, Tren tren);
 	abstract public void crearVistaTrenMovimiento(VistaEstacion vistaEstacion, Tren tren);
 	abstract public void removeFromEsperando(VistaEstacion vista, Tren tren);
 	abstract public void crearEsperando(VistaEstacion vista, Tren tren);
