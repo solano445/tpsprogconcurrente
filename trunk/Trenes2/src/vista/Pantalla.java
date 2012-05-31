@@ -32,7 +32,7 @@ public class Pantalla extends Thread{
 
 	public synchronized void imprimirCambios() {
 		if (cambios.isEmpty()) {
-			System.out.println("No hay cambios");
+			//System.out.println("No hay cambios");
 			try {this.wait();} catch (InterruptedException e) {e.printStackTrace();}
 		} else {
 			for (Cambio cambio : this.cambios) {
@@ -45,7 +45,7 @@ public class Pantalla extends Thread{
 	
 	public synchronized void iniciarEsperandoIngreso(Tren tren) {
 		VistaEstacion vista = tren.estActual.estacionConcreta.vistaEstacion;
-		System.out.println("Se inicia en estado en movimiento " + tren.nombre + " - " + vista.estacion.nombre);
+		//System.out.println("Se inicia en estado en movimiento " + tren.nombre + " - " + vista.estacion.nombre);
 		tren.sentido.crearVistaTrenMovimiento(vista, tren);
 	}
 	

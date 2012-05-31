@@ -11,7 +11,7 @@ public class CambioEnMovimiento extends Cambio {
 	
 	@Override
 	public void plasmar(Pantalla pantalla) {
-		System.out.println("plasmando en movimiento");
+		//System.out.println("plasmando en movimiento");
 		//sacar estado temporal anterior
 		//conseguir la VistaEstacion
 		VistaEstacion vista = this.estacion.estacionConcreta.vistaEstacion;
