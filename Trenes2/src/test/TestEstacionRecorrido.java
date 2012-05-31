@@ -40,8 +40,6 @@ public class TestEstacionRecorrido {
 	
 	@Test
 	public void testCantidadEstaciones(){
-		//EstacionRecorrido[] estacionesArraty = new EstacionRecorrido[recorrido.cantidadEstaciones];
-		
 		assertTrue(this.recorrido.cantidadEstaciones == 4);
 	}
 	

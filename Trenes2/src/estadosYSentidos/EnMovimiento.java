@@ -14,7 +14,7 @@ public class EnMovimiento extends EstadoTren {
 		//Hacer Cambio
 		this.pantalla.agregarCambio(new CambioEnMovimiento(this.tren));
         EstacionRecorrido estacionAnterior = this.tren.sentido.estacionAnterior(this.tren.estActual);
-		this.tren.sentido.liberarPermiso(estacionAnterior.estacionConcreta);
+		this.tren.sentido.liberarPermiso(estacionAnterior.estacionConcreta , this.tren);
 		//otra cosa
 				
 		//simula el tiempo de circulacion del tren sobre la via

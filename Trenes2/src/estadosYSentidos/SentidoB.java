@@ -18,12 +18,12 @@ public class SentidoB extends Sentido {
 	}
 	
 	@Override
-	public void solicitarPermiso(EstacionConcreta estacionActual) {
-		estacionActual.pedirPermisoIngresoSentidoB();
+	public void solicitarPermiso(EstacionConcreta estacionActual, Tren tren) {
+		estacionActual.pedirPermisoIngresoSentidoB(tren);
 	}
 	@Override
-	public void liberarPermiso(EstacionConcreta estacionActual) {
-		estacionActual.liberarPermisoIngresoSentidoB();
+	public void liberarPermiso(EstacionConcreta estacionActual, Tren tren) {
+		estacionActual.liberarPermisoIngresoSentidoB(tren);
 		
 	}
 
