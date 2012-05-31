@@ -17,6 +17,7 @@ public class Recorrido{
 		this.priEstSenA = nuevaEstacion;
 		this.priEstSenB = nuevaEstacion;
 		this.cantidadEstaciones = 1;
+		estacion.agregarEstacionRecorrido(nuevaEstacion);
 	}
 	
 	public void agregarEstacion(EstacionConcreta estacion){
@@ -54,7 +55,7 @@ public class Recorrido{
 		return recorrido;
 	}
 	
-	static void crearVistas(Recorrido recorrido){
+	public static void crearVistas(Recorrido recorrido){
 		List<VistaEstacion> vistas = Pantalla.getInstance().vistaEstaciones;
 		
 		EstacionRecorrido estacionActual = recorrido.priEstSenA;

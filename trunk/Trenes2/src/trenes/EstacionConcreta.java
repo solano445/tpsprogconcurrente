@@ -4,6 +4,8 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+import estadosYSentidos.SentidoPasajero;
+
 import vista.VistaEstacion;
 
 public class EstacionConcreta {
@@ -87,6 +89,8 @@ public class EstacionConcreta {
 		this.estacionRecorrido = nuevaEstacion;		
 	}
 	
-	
+	public SentidoPasajero sentidoMasCortoHasta(EstacionConcreta estacionDestino){
+		return this.estacionRecorrido.sentidoMasCortoHasta(estacionDestino);
+	}
 
 }
