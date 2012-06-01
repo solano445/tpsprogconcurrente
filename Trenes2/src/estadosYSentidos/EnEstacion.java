@@ -11,12 +11,15 @@ public class EnEstacion extends EstadoTren {
 
 	@Override
 	public void run() {
-		//Hacer Cambio
+		//Hacer Cambio enEstacion
 		this.pantalla.agregarCambio(new CambioEnEstacion(this.tren));
-		//otra cosa
-		//##System.out.println(this.tren.toString() + " saliendo de " + this.tren.estActual.getNombre());
+		
+		
+		
+		//se setea la sigioente estacion
 		this.tren.siguienteEstacion();
 		this.tren.dormir(3000); //Duerme
+		//en el siguiente estado se libera el anden y se guarda el cambio en la coleccion de la pantalla
 	}
 
 	@Override

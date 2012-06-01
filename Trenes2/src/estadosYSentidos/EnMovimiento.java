@@ -11,14 +11,15 @@ public class EnMovimiento extends EstadoTren {
 
 	@Override
 	public void run() {
-		//Hacer Cambio
+		//Hacer Cambio en movimiento a siguiente estacion
 		this.pantalla.agregarCambio(new CambioEnMovimiento(this.tren));
         EstacionRecorrido estacionAnterior = this.tren.sentido.estacionAnterior(this.tren.estActual);
-		this.tren.sentido.liberarPermiso(estacionAnterior.estacionConcreta , this.tren);
-		//otra cosa
+		
+        
+        //actua sobre el lockAndenTrenesA y la condition accesoAndenTrenA
+        this.tren.sentido.liberarPermiso(estacionAnterior.estacionConcreta , this.tren);
 				
 		//simula el tiempo de circulacion del tren sobre la via
-		//##System.out.println(this.tren.toString() + " circulando hacia " + this.tren.estActual.getNombre());
 		this.tren.dormir(300);
 	}
 
