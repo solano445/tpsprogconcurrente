@@ -19,7 +19,7 @@ public class CambioEsperandoIngreso extends Cambio {
 		
 		vista.cantPasajeros = this.cantPasajerosEstacion;
 		//crear nuevo estado temporal
-		this.tren.sentido.crearEsperando(vista, this.tren);
+		this.tren.sentido.crearEsperando(vista, this.tren, this.cantPasajerosAbordo);
 		
 	}
 

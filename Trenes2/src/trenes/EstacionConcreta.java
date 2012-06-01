@@ -62,7 +62,6 @@ public class EstacionConcreta {
 		else{
 			this.cantAndenesOcupadosSentidoA++;
 			this.trenesAndenA.add(tren);
-			this.cantPasajerosEsperandoAndenA = 0;
 			this.pasajerosEsperandoAndenA.signalAll();			
 		}
 		lockAndenA.unlock();
@@ -77,7 +76,6 @@ public class EstacionConcreta {
 		else{
 			this.cantAndenesOcupadosSentidoB++;
 			this.trenesAndenB.add(tren);
-			this.cantPasajerosEsperandoAndenB = 0;
 			this.pasajerosEsperandoAndenB.signalAll();
 		}
 		lockAndenB.unlock();

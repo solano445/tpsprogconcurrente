@@ -23,10 +23,13 @@ public class Tren extends Thread{
 	public EnEstacion enEstacion = new EnEstacion(this);
 	public Sentido sentido;
 	public String nombre;
+	public TimerTren timer;
 	//nuevo
-	public Lock lockTrenViaje= new ReentrantLock(true);
+	public Lock lockTrenViaje = new ReentrantLock(true);
 	public Condition pasajerosViajando = lockTrenViaje.newCondition();
 	public Condition pasajerosAbordando = lockTrenViaje.newCondition();
+	public Lock lockTrenEsperandoSalir = new ReentrantLock(true);
+	public Condition trenEsperandoSalir = lockTrenEsperandoSalir.newCondition();
 	public Integer cantPasajerosMax;
 	public Integer cantPasajerosAbordo;
 	public List<Pasajero>  pasajerosABordo;
@@ -83,5 +86,9 @@ public class Tren extends Thread{
 
 	public EstacionConcreta getEstacionActual(){
 		return this.estActual.estacionConcreta;
+	}
+
+	public String toString(Integer cantPasajerosAbordo) {
+		return this.sentido.trenToString(this, cantPasajerosAbordo);
 	}
 }

@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import trenes.Pasajero;
+import trenes.TimerTren;
 import trenes.Tren;
 import vista.CambioEnEstacion;
 
@@ -35,6 +36,13 @@ public class EnEstacion extends EstadoTren {
 		//this.tren.pasajerosViajando.signalAll();
 		this.tren.lockTrenViaje.unlock();
 		//nuevo
+		//Duerme en la estacion hasta que se llene o se acabe el tiempo.
+		this.tren.lockTrenEsperandoSalir.lock();
+		TimerTren timer=new TimerTren(tren);
+		timer.start();
+		try {this.tren.trenEsperandoSalir.await();} catch (InterruptedException e) {e.printStackTrace();}
+		timer.salioTren = true;
+		this.tren.lockTrenEsperandoSalir.unlock();
 		
 		//se setea la siguiente estacion
 		this.tren.siguienteEstacion();

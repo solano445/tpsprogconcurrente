@@ -37,5 +37,12 @@ public class SentidoPasajeroB extends SentidoPasajero {
 	public void incrementarPasajerosAnden(EstacionConcreta estacionOrigen) {
 		estacionOrigen.cantPasajerosEsperandoAndenB++;
 	}
+	@Override
+	public void decrementarPasajerosAnden(EstacionConcreta estacionOrigen) {
+		estacionOrigen.cantPasajerosEsperandoAndenB--;
+		if(estacionOrigen.cantPasajerosEsperandoAndenB == 0 && estacionOrigen.nombre== "Bernal"){
+			new RuntimeException("Esta Vacia Guachoo Forrooo!!");
+		}
+	}
 	
 }

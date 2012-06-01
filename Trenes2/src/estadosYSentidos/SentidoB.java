@@ -28,8 +28,8 @@ public class SentidoB extends Sentido {
 	}
 
 	@Override
-	public void crearVistaTrenMovimiento(VistaEstacion vistaEstacion, Tren tren) {
-		vistaEstacion.enMovimientoLlendoHaciaEstacionSentidoB.add(new EstadoTemporal(tren));
+	public void crearVistaTrenMovimiento(VistaEstacion vistaEstacion, Tren tren, Integer cantidadDePasajeros) {
+		vistaEstacion.enMovimientoLlendoHaciaEstacionSentidoB.add(new EstadoTemporal(tren , cantidadDePasajeros));
 	}
 
 	@Override
@@ -39,8 +39,8 @@ public class SentidoB extends Sentido {
 
 	
 	@Override
-	public void crearEsperando(VistaEstacion vista, Tren tren) {
-		vista.esperandoSentidoB.add(new EstadoTemporal(tren));
+	public void crearEsperando(VistaEstacion vista, Tren tren, Integer cantidadDePasajeros) {
+		vista.esperandoSentidoB.add(new EstadoTemporal(tren , cantidadDePasajeros));
 		
 	}
 
@@ -58,5 +58,10 @@ public class SentidoB extends Sentido {
 	@Override
 	public String trenToString(Tren tren) {
 		return "[<<" + tren.nombre + "(#" + tren.cantPasajerosAbordo +"/"+ tren.cantPasajerosMax +")" + "]";		
+	}
+	
+	@Override
+	public String trenToString(Tren tren, Integer cantPasajerosAbordo) {
+		return "[<<" + tren.nombre + "(#" + cantPasajerosAbordo +"/"+ tren.cantPasajerosMax +")" + "]";		
 	}
 }

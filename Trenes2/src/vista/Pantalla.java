@@ -46,7 +46,7 @@ public class Pantalla extends Thread{
 	public synchronized void iniciarEsperandoIngreso(Tren tren) {
 		VistaEstacion vista = tren.estActual.estacionConcreta.vistaEstacion;
 		//System.out.println("Se inicia en estado en movimiento " + tren.nombre + " - " + vista.estacion.nombre);
-		tren.sentido.crearVistaTrenMovimiento(vista, tren);
+		tren.sentido.crearVistaTrenMovimiento(vista, tren, 0);
 	}
 	
 	
