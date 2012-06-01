@@ -21,12 +21,15 @@ public class EstacionConcreta {
 	public List<Tren> trenesAndenA;
 	public List<Tren> trenesAndenB;
 	
-	public Lock lockAndenA= new ReentrantLock(true);
-	public Lock lockAndenB= new ReentrantLock(true);
-    public Condition andenTrenA = lockAndenA.newCondition();
-    public Condition andenTrenB = lockAndenB.newCondition();
-    public Condition andenPasajerosA = lockAndenA.newCondition();
-    public Condition andenPasajerosB = lockAndenB.newCondition();
+	
+	public Lock lockAndenPasajerosA= new ReentrantLock(true);
+	public Lock lockAndenPasajerosB= new ReentrantLock(true);
+	public Lock lockAndenTrenesA= new ReentrantLock(true);
+	public Lock lockAndenTrenesB= new ReentrantLock(true);
+    public Condition accesoAndenTrenA = lockAndenTrenesA.newCondition();
+    public Condition accesoAndenTrenB = lockAndenTrenesB.newCondition();
+    public Condition pasajerosEsperandoAndenA = lockAndenPasajerosA.newCondition();
+    public Condition pasajerosEsperandoAndenB = lockAndenPasajerosB.newCondition();
     
     public VistaEstacion vistaEstacion;
 	public EstacionRecorrido estacionRecorrido;
@@ -47,48 +50,48 @@ public class EstacionConcreta {
 	//Metodos
 	
 	public void pedirPermisoIngresoSentidoA(Tren tren){
-		lockAndenA.lock();
+		lockAndenTrenesA.lock();
 		//pedirPermisoIngresoSentido(this.cantAndenesOcupadosSentidoA, this.andenA);
 		if(!(this.cantAndenesOcupadosSentidoA<cantAndenes)){
-			try {this.andenTrenA.await();} catch (InterruptedException e) {e.printStackTrace();}
+			try {this.accesoAndenTrenA.await();} catch (InterruptedException e) {e.printStackTrace();}
 		}
 		else{
 			this.cantAndenesOcupadosSentidoA++;
 			this.trenesAndenA.add(tren);
-			this.andenPasajerosA.signalAll();
+			this.pasajerosEsperandoAndenA.signalAll();
 			
 		}
-		lockAndenA.unlock();
+		lockAndenTrenesA.unlock();
 	}
 	
 	public void pedirPermisoIngresoSentidoB(Tren tren){
-		lockAndenB.lock();
+		lockAndenTrenesB.lock();
 		//pedirPermisoIngresoSentido(this.cantAndenesOcupadosSentidoB, this.andenB);
 		if(!(this.cantAndenesOcupadosSentidoB<cantAndenes)){
-		try {this.andenTrenB.await();} catch (InterruptedException e) {e.printStackTrace();}
+		try {this.accesoAndenTrenB.await();} catch (InterruptedException e) {e.printStackTrace();}
 		}
 		else{
 			this.cantAndenesOcupadosSentidoB++;
 			this.trenesAndenB.add(tren);
-			this.andenPasajerosB.signalAll();
+			this.pasajerosEsperandoAndenB.signalAll();
 		}
-		lockAndenB.unlock();
+		lockAndenTrenesB.unlock();
 	}
 	
 	public void liberarPermisoIngresoSentidoA(Tren tren){
-		lockAndenA.lock();
+		lockAndenTrenesA.lock();
 		this.cantAndenesOcupadosSentidoA--;
-		this.andenTrenA.signal();
+		this.accesoAndenTrenA.signal();
 		this.trenesAndenA.remove(tren);
-		lockAndenA.unlock();
+		lockAndenTrenesA.unlock();
 	}
 	
 	public void liberarPermisoIngresoSentidoB(Tren tren){
-		lockAndenB.lock();
+		lockAndenTrenesB.lock();
 		this.cantAndenesOcupadosSentidoB--;
-		this.andenTrenB.signal();
+		this.accesoAndenTrenB.signal();
 		this.trenesAndenB.remove(tren);
-		lockAndenB.unlock();
+		lockAndenTrenesB.unlock();
 	}
 
 

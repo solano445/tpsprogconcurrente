@@ -23,13 +23,14 @@ public class Tren extends Thread{
 	public EnEstacion enEstacion = new EnEstacion(this);
 	public Sentido sentido;
 	public String nombre;
+	//nuevo
 	public Lock lockTrenViaje= new ReentrantLock(true);
 	public Condition pasajerosViajando = lockTrenViaje.newCondition();
 	public Condition pasajerosAbordando = lockTrenViaje.newCondition();
 	public Integer cantPasajerosMax;
 	public Integer cantPasajerosAbordo;
 	public List<Pasajero>  pasajerosABordo;
-
+	//nuevo
 	public void run(){
 		while(!Simulador.terminaSimulacion){
 			this.estadoActual.run();
