@@ -17,6 +17,7 @@ public class CambioEsperandoIngreso extends Cambio {
 		//depende del estado y del sentido //estado ingrendo
 		this.tren.sentido.removeFromMovimiento(vista, this.tren);
 		
+		vista.cantPasajeros = this.cantPasajerosEstacion;
 		//crear nuevo estado temporal
 		this.tren.sentido.crearEsperando(vista, this.tren);
 		

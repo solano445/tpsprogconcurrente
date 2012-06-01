@@ -22,17 +22,19 @@ public class EstacionConcreta {
 	public List<Tren> trenesAndenB;
 	
 	
-	public Lock lockAndenPasajerosA= new ReentrantLock(true);
-	public Lock lockAndenPasajerosB= new ReentrantLock(true);
-	public Lock lockAndenTrenesA= new ReentrantLock(true);
-	public Lock lockAndenTrenesB= new ReentrantLock(true);
-    public Condition accesoAndenTrenA = lockAndenTrenesA.newCondition();
-    public Condition accesoAndenTrenB = lockAndenTrenesB.newCondition();
-    public Condition pasajerosEsperandoAndenA = lockAndenPasajerosA.newCondition();
-    public Condition pasajerosEsperandoAndenB = lockAndenPasajerosB.newCondition();
+	//public Lock lockAndenPasajerosA= new ReentrantLock(true);
+	//public Lock lockAndenPasajerosB= new ReentrantLock(true);
+	public Lock lockAndenA= new ReentrantLock(true);
+	public Lock lockAndenB= new ReentrantLock(true);
+    public Condition accesoAndenTrenA = lockAndenA.newCondition();
+    public Condition accesoAndenTrenB = lockAndenB.newCondition();
+    public Condition pasajerosEsperandoAndenA = lockAndenA.newCondition();
+    public Condition pasajerosEsperandoAndenB = lockAndenB.newCondition();
     
     public VistaEstacion vistaEstacion;
 	public EstacionRecorrido estacionRecorrido;
+	public Integer cantPasajerosEsperandoAndenA;
+	public Integer cantPasajerosEsperandoAndenB;
     
 	//Constructor
 	public EstacionConcreta(String nombreP , Integer cantAndenesP, Integer esperaEnMilisegundosP) {
@@ -41,6 +43,8 @@ public class EstacionConcreta {
 		this.esperaEnMilisegundos=esperaEnMilisegundosP;
 		this.cantAndenesOcupadosSentidoA=0;
 		this.cantAndenesOcupadosSentidoB=0;
+		this.cantPasajerosEsperandoAndenA=0;
+		this.cantPasajerosEsperandoAndenB=0;
 		this.trenesAndenA = new ArrayList<Tren>();
 		this.trenesAndenB = new ArrayList<Tren>();
 	}
@@ -50,7 +54,7 @@ public class EstacionConcreta {
 	//Metodos
 	
 	public void pedirPermisoIngresoSentidoA(Tren tren){
-		lockAndenTrenesA.lock();
+		lockAndenA.lock();
 		//pedirPermisoIngresoSentido(this.cantAndenesOcupadosSentidoA, this.andenA);
 		if(!(this.cantAndenesOcupadosSentidoA<cantAndenes)){
 			try {this.accesoAndenTrenA.await();} catch (InterruptedException e) {e.printStackTrace();}
@@ -58,14 +62,14 @@ public class EstacionConcreta {
 		else{
 			this.cantAndenesOcupadosSentidoA++;
 			this.trenesAndenA.add(tren);
-			this.pasajerosEsperandoAndenA.signalAll();
-			
+			this.cantPasajerosEsperandoAndenA = 0;
+			this.pasajerosEsperandoAndenA.signalAll();			
 		}
-		lockAndenTrenesA.unlock();
+		lockAndenA.unlock();
 	}
 	
 	public void pedirPermisoIngresoSentidoB(Tren tren){
-		lockAndenTrenesB.lock();
+		lockAndenB.lock();
 		//pedirPermisoIngresoSentido(this.cantAndenesOcupadosSentidoB, this.andenB);
 		if(!(this.cantAndenesOcupadosSentidoB<cantAndenes)){
 		try {this.accesoAndenTrenB.await();} catch (InterruptedException e) {e.printStackTrace();}
@@ -73,25 +77,26 @@ public class EstacionConcreta {
 		else{
 			this.cantAndenesOcupadosSentidoB++;
 			this.trenesAndenB.add(tren);
+			this.cantPasajerosEsperandoAndenB = 0;
 			this.pasajerosEsperandoAndenB.signalAll();
 		}
-		lockAndenTrenesB.unlock();
+		lockAndenB.unlock();
 	}
 	
 	public void liberarPermisoIngresoSentidoA(Tren tren){
-		lockAndenTrenesA.lock();
+		lockAndenA.lock();
 		this.cantAndenesOcupadosSentidoA--;
 		this.accesoAndenTrenA.signal();
 		this.trenesAndenA.remove(tren);
-		lockAndenTrenesA.unlock();
+		lockAndenA.unlock();
 	}
 	
 	public void liberarPermisoIngresoSentidoB(Tren tren){
-		lockAndenTrenesB.lock();
+		lockAndenB.lock();
 		this.cantAndenesOcupadosSentidoB--;
 		this.accesoAndenTrenB.signal();
 		this.trenesAndenB.remove(tren);
-		lockAndenTrenesB.unlock();
+		lockAndenB.unlock();
 	}
 
 
@@ -101,6 +106,12 @@ public class EstacionConcreta {
 	
 	public SentidoPasajero sentidoMasCortoHasta(EstacionConcreta estacionDestino){
 		return this.estacionRecorrido.sentidoMasCortoHasta(estacionDestino);
+	}
+
+
+
+	public Integer cantPasajerosEsperando() {
+		return this.cantPasajerosEsperandoAndenA + this.cantPasajerosEsperandoAndenB;
 	}
 
 }

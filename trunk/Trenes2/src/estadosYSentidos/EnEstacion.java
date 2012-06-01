@@ -1,5 +1,9 @@
 package estadosYSentidos;
 
+import java.util.LinkedList;
+import java.util.List;
+
+import trenes.Pasajero;
 import trenes.Tren;
 import vista.CambioEnEstacion;
 
@@ -11,12 +15,28 @@ public class EnEstacion extends EstadoTren {
 
 	@Override
 	public void run() {
+		
+		
+				
 		//Hacer Cambio enEstacion
 		this.pantalla.agregarCambio(new CambioEnEstacion(this.tren));
 		
+		//nuevo
+		this.tren.lockTrenViaje.lock();
+		List<Pasajero> pasajerosQueSeBajaron= new LinkedList<Pasajero>();
+		for (Pasajero pasajero : this.tren.pasajerosABordo) {
+			if(pasajero.estacionDestino.equals(this.tren.getEstacionActual())){
+				//pasajero.llegoADestino = true;
+				this.tren.cantPasajerosAbordo--;
+				pasajerosQueSeBajaron.add(pasajero);				
+			}			
+		}
+		this.tren.pasajerosABordo.removeAll(pasajerosQueSeBajaron);
+		//this.tren.pasajerosViajando.signalAll();
+		this.tren.lockTrenViaje.unlock();
+		//nuevo
 		
-		
-		//se setea la sigioente estacion
+		//se setea la siguiente estacion
 		this.tren.siguienteEstacion();
 		this.tren.dormir(3000); //Duerme
 		//en el siguiente estado se libera el anden y se guarda el cambio en la coleccion de la pantalla
