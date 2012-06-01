@@ -25,7 +25,7 @@ public class CambioEnMovimiento extends Cambio {
 
 		//vista.cantPasajeros = this.cantPasajerosEstacion;
 		//crear nuevo estado temporal
-		this.tren.sentido.crearVistaTrenMovimiento(vista, this.tren);
+		this.tren.sentido.crearVistaTrenMovimiento(vista, this.tren, this.cantPasajerosAbordo);
 		
 	}
 

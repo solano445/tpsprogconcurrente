@@ -25,10 +25,15 @@ public class Pasajero extends Thread {
 	
 	public void run() {		
 		this.sentido = this.estacionOrigen.sentidoMasCortoHasta(estacionDestino);
+		
+		this.sentido.getLockAndenEstacion(this.estacionOrigen).lock();
+		this.sentido.incrementarPasajerosAnden(this.estacionOrigen);
+		this.sentido.getLockAndenEstacion(this.estacionOrigen).unlock();
+		
 		while(!abordo){
+			this.sentido.getLockAndenEstacion(this.estacionOrigen).lock();
 			//usa el lock que utilizan los trenes
 			//para entrar o salir a la estacion
-			this.sentido.getLockAndenEstacion(this.estacionOrigen).lock();
 			
 			if(this.sentido.hayTrenEnAnden(this.estacionOrigen)){
 				//hay un tren en la estacion y tiene el lock
@@ -42,18 +47,28 @@ public class Pasajero extends Thread {
 					tren.pasajerosABordo.add(this);
 					//try {tren.pasajerosViajando.await();} catch (InterruptedException e) {e.printStackTrace();}
 					this.abordo = true;
+					if(tren.cantPasajerosAbordo==tren.cantPasajerosMax){//si soy el ultimo lo aviso asi sale jajaj
+						tren.lockTrenEsperandoSalir.lock();
+						tren.trenEsperandoSalir.signal();
+						tren.lockTrenEsperandoSalir.unlock();
+					}
+						
+					this.sentido.decrementarPasajerosAnden(this.estacionOrigen);
 				}
+				
 				//libera el lock del tren tras modificar su estado
 				tren.lockTrenViaje.unlock();
+				
 			}
 			else{
 				Condition esperarEnAnden = this.sentido.getConditionAndenPasajeros(this.estacionOrigen);
-				this.sentido.incrementarPasajerosAnden(this.estacionOrigen);
 				try {esperarEnAnden.await();} catch (InterruptedException e) {e.printStackTrace();}
+				
 			}
 			//libera el permiso para que el tren pueda circular
-			this.sentido.getLockAndenEstacion(this.estacionOrigen).unlock();
+			
 			//si no hay trenes duerme en el anden			
+			this.sentido.getLockAndenEstacion(this.estacionOrigen).unlock();
 		}
 		
 	}

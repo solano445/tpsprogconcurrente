@@ -19,5 +19,7 @@ public abstract class SentidoPasajero {
 	public abstract Condition getConditionAndenPasajeros(EstacionConcreta estacionOrigen);
 
 	public abstract void incrementarPasajerosAnden(EstacionConcreta estacionOrigen);
+
+	public abstract void decrementarPasajerosAnden(EstacionConcreta estacionOrigen);
 	
 }

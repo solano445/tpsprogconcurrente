@@ -18,7 +18,7 @@ public class CambioEnEstacion extends Cambio {
 		this.tren.sentido.removeFromEsperando(vista, this.tren);
 		vista.cantPasajeros = this.cantPasajerosEstacion;
 		//crear nuevo estado temporal
-		vista.enEstacion.add(new EstadoTemporal(tren));
+		vista.enEstacion.add(new EstadoTemporal(tren, this.cantPasajerosAbordo));
 	}
 
 	@Override

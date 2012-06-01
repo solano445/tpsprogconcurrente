@@ -8,11 +8,14 @@ public abstract class Cambio {
 	public Tren tren;
 	public EstacionRecorrido estacion;
 	public Integer cantPasajerosEstacion;
+	public Integer cantPasajerosAbordo;
+	
 
 	public Cambio(Tren tren){
 		this.tren=tren;
 		this.estacion=tren.estActual;
 		this.cantPasajerosEstacion = estacion.estacionConcreta.cantPasajerosEsperando();
+		this.cantPasajerosAbordo=tren.cantPasajerosAbordo;
 	}
 	
 	
