@@ -7,11 +7,12 @@ public abstract class Cambio {
 
 	public Tren tren;
 	public EstacionRecorrido estacion;
+	public Integer cantPasajerosEstacion;
 
 	public Cambio(Tren tren){
 		this.tren=tren;
 		this.estacion=tren.estActual;
-		//System.out.println("Se crea " + this.toStringTemplate() + " - " + this.tren.nombre + " - " + this.estacion.getNombre());		
+		this.cantPasajerosEstacion = estacion.estacionConcreta.cantPasajerosEsperando();
 	}
 	
 	

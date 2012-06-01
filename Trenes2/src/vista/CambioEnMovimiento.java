@@ -22,6 +22,8 @@ public class CambioEnMovimiento extends Cambio {
 		//depende del estado y del sentido //estado ingrendo
 		vistaAnterior.enEstacion.remove(Pantalla.devolverEstado(vistaAnterior.enEstacion, tren));
 		
+
+		//vista.cantPasajeros = this.cantPasajerosEstacion;
 		//crear nuevo estado temporal
 		this.tren.sentido.crearVistaTrenMovimiento(vista, this.tren);
 		
