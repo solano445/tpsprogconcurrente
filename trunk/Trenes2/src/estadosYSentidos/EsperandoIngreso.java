@@ -14,12 +14,12 @@ public class EsperandoIngreso extends EstadoTren {
 
 	@Override
 	public void run() {
-		//Hacer Cambio
+		//Hacer Cambio esperando ingreso
 		this.pantalla.agregarCambio(new CambioEsperandoIngreso(this.tren));
-		//otra cosa
 				
-		//##System.out.println(this.tren.toString() + " Entrando a " + this.tren.estActual.getNombre());
 		this.tren.sentido.solicitarPermiso(this.tren.getEstacionActual() , this.tren);
+		
+		//nuevo
 		this.tren.lockTrenViaje.lock();
 		List<Pasajero> pasajerosQueSeBajaron= new LinkedList<Pasajero>();
 		for (Pasajero pasajero : this.tren.pasajerosABordo) {
@@ -34,7 +34,7 @@ public class EsperandoIngreso extends EstadoTren {
 		this.tren.pasajerosABordo.removeAll(pasajerosQueSeBajaron);
 		this.tren.pasajerosViajando.signalAll();
 		this.tren.lockTrenViaje.unlock();
-		//##System.out.println(this.tren.toString() + " Entro en " + this.tren.estActual.getNombre());
+		//nuevo
 	}
 
 	@Override
