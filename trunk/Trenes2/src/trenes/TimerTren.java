@@ -12,7 +12,7 @@ public class TimerTren extends Thread {
 	@Override
 	public void run() {
 		//duerme
-		try {TimerTren.sleep(200);} catch (InterruptedException e) {e.printStackTrace();}
+		try {TimerTren.sleep(this.tren.getEstacionActual().esperaEnMilisegundos);} catch (InterruptedException e) {e.printStackTrace();}
 		//despierta
 			this.tren.lockTrenEsperandoSalir.lock();
 			if(!salioTren){				
