@@ -35,6 +35,7 @@ public class EnEstacion extends EstadoTren {
 		this.tren.pasajerosABordo.removeAll(pasajerosQueSeBajaron);
 		//this.tren.pasajerosViajando.signalAll();
 		this.tren.lockTrenViaje.unlock();
+		
 		//nuevo
 		//Duerme en la estacion hasta que se llene o se acabe el tiempo.
 		this.tren.lockTrenEsperandoSalir.lock();
@@ -46,7 +47,6 @@ public class EnEstacion extends EstadoTren {
 		
 		//se setea la siguiente estacion
 		this.tren.siguienteEstacion();
-		this.tren.dormir(3000); //Duerme
 		//en el siguiente estado se libera el anden y se guarda el cambio en la coleccion de la pantalla
 	}
 

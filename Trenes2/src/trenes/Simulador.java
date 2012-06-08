@@ -23,12 +23,12 @@ public class Simulador {
 		List<Tren> trenes = Tren.getTrenes(recorrido);
 		//Viajan De Quilmes A Ezpeleta
 		for (int i = 0; i < 100; i++) {
-			new Pasajero("Juan" , Recorrido.estaciones[2] ,Recorrido.estaciones[1]).start();
+			new Pasajero("Juan" , Recorrido.estaciones[0] ,Recorrido.estaciones[3]).start();
 			
 		}
 		//Viajan De Berazategui A Ezpeleta
 		for (int i = 0; i < 100; i++) {
-			new Pasajero("Domingo" , Recorrido.estaciones[2] ,Recorrido.estaciones[1]).start();
+			new Pasajero("Domingo" , Recorrido.estaciones[3] ,Recorrido.estaciones[0]).start();
 			
 		}
 		//Recorrido.testearGetRecorrido(recorrido);

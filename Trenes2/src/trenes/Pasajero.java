@@ -20,7 +20,6 @@ public class Pasajero extends Thread {
 		this.estacionOrigen=estacionOrigen;
 		this.llegoADestino = false;
 		this.abordo = false;
-		System.out.println("Pasajero " + nombre + " de " + estacionOrigen.nombre + " a " + estacionDestino.nombre);
 	}
 	
 	public void run() {		

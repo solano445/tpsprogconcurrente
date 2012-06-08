@@ -12,14 +12,16 @@ public class EnMovimiento extends EstadoTren {
 	@Override
 	public void run() {
 		//Hacer Cambio en movimiento a siguiente estacion
-		this.pantalla.agregarCambio(new CambioEnMovimiento(this.tren));
         EstacionRecorrido estacionAnterior = this.tren.sentido.estacionAnterior(this.tren.estActual);
+        this.pantalla.agregarCambio(new CambioEnMovimiento(this.tren));
 		        
         //actua sobre el lockAndenTrenesA y la condition accesoAndenTrenA
         this.tren.sentido.liberarPermiso(estacionAnterior.estacionConcreta , this.tren);
+		//
+        //Aca es donde se deberia actualizar la cantidad de pasajeros de la estacion anterior
 		
-		//simula el tiempo de circulacion del tren sobre la via
-		this.tren.dormir(300);
+        //simula el tiempo de circulacion del tren sobre la via
+		this.tren.dormir(1000);
 	}
 
 	@Override
