@@ -1,9 +1,6 @@
 package estadosYSentidos;
 
-import java.util.LinkedList;
-import java.util.List;
-
-import trenes.*;
+import trenes.Tren;
 import vista.CambioEsperandoIngreso;
 
 public class EsperandoIngreso extends EstadoTren {

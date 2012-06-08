@@ -21,33 +21,31 @@ public class Simulador {
 		Pantalla pantalla = Pantalla.getInstance();
 		Recorrido recorrido = Recorrido.getRecorrido();
 		List<Tren> trenes = Tren.getTrenes(recorrido);
-		//Viajan De Quilmes A Ezpeleta
-		for (int i = 0; i < 100; i++) {
+		//agregar a las personas
+		
+		//Viajan De Ezpeleta A Berazategui
+		for (int i = 0; i < 200; i++) {
 			new Pasajero("Juan" , Recorrido.estaciones[0] ,Recorrido.estaciones[3]).start();
 			
 		}
 		//Viajan De Berazategui A Ezpeleta
-		for (int i = 0; i < 100; i++) {
+		for (int i = 0; i < 200; i++) {
 			new Pasajero("Domingo" , Recorrido.estaciones[3] ,Recorrido.estaciones[0]).start();
 			
 		}
-		//Recorrido.testearGetRecorrido(recorrido);
 		for(Tren tren:trenes){
 			tren.start();
 		}
 		pantalla.start();
-		//agregar a las personas
 		 	
 	}
 	
 	private static void createWindow() {		 
-		//Create and set up the window. 
 		frame = new JFrame("Simulador");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//frame.setUndecorated(true);
 		
 		JButton terminarAplicacion = new JButton("Terminar");
-		//JLabel textLabel = new JLabel("I'm a label in the window",SwingConstants.CENTER); 
 		terminarAplicacion.setPreferredSize(new Dimension(200, 50));
 		terminarAplicacion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent actionEvent) {

@@ -13,7 +13,6 @@ public class EstadoTemporal {
 	}
 
 	public String toString(){
-		//TODO
 		return this.tren.toString(this.cantPasajerosAbordo);				
 	}
 }
