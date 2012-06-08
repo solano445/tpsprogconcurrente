@@ -18,7 +18,7 @@ public class EnMovimiento extends EstadoTren {
         //actua sobre el lockAndenTrenesA y la condition accesoAndenTrenA
         this.tren.sentido.liberarPermiso(estacionAnterior.estacionConcreta , this.tren);
 		//
-        //Aca es donde se deberia actualizar la cantidad de pasajeros de la estacion anterior
+        //TODO Aca es donde se deberia actualizar la cantidad de pasajeros de la estacion anterior
 		
         //simula el tiempo de circulacion del tren sobre la via
 		this.tren.dormir(1000);

@@ -11,7 +11,6 @@ public class CambioEnMovimiento extends Cambio {
 	
 	@Override
 	public void plasmar(Pantalla pantalla) {
-		//System.out.println("plasmando en movimiento");
 		//sacar estado temporal anterior
 		//conseguir la VistaEstacion
 		VistaEstacion vista = this.estacion.estacionConcreta.vistaEstacion;
@@ -23,7 +22,6 @@ public class CambioEnMovimiento extends Cambio {
 		vistaAnterior.enEstacion.remove(Pantalla.devolverEstado(vistaAnterior.enEstacion, tren));
 		
 
-		//vista.cantPasajeros = this.cantPasajerosEstacion;
 		//crear nuevo estado temporal
 		this.tren.sentido.crearVistaTrenMovimiento(vista, this.tren, this.cantPasajerosAbordo);
 	}

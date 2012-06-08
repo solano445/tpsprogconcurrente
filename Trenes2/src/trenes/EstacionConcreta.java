@@ -20,10 +20,7 @@ public class EstacionConcreta {
 	public Integer esperaEnMilisegundos;
 	public List<Tren> trenesAndenA;
 	public List<Tren> trenesAndenB;
-	
-	
-	//public Lock lockAndenPasajerosA= new ReentrantLock(true);
-	//public Lock lockAndenPasajerosB= new ReentrantLock(true);
+
 	public Lock lockAndenA= new ReentrantLock(true);
 	public Lock lockAndenB= new ReentrantLock(true);
     public Condition accesoAndenTrenA = lockAndenA.newCondition();
@@ -55,7 +52,6 @@ public class EstacionConcreta {
 	
 	public void pedirPermisoIngresoSentidoA(Tren tren){
 		lockAndenA.lock();
-		//pedirPermisoIngresoSentido(this.cantAndenesOcupadosSentidoA, this.andenA);
 		if(!(this.cantAndenesOcupadosSentidoA<cantAndenes)){
 			try {this.accesoAndenTrenA.await();} catch (InterruptedException e) {e.printStackTrace();}
 		}
@@ -69,7 +65,6 @@ public class EstacionConcreta {
 	
 	public void pedirPermisoIngresoSentidoB(Tren tren){
 		lockAndenB.lock();
-		//pedirPermisoIngresoSentido(this.cantAndenesOcupadosSentidoB, this.andenB);
 		if(!(this.cantAndenesOcupadosSentidoB<cantAndenes)){
 		try {this.accesoAndenTrenB.await();} catch (InterruptedException e) {e.printStackTrace();}
 		}

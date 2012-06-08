@@ -46,7 +46,7 @@ public class Pasajero extends Thread {
 					tren.pasajerosABordo.add(this);
 					//try {tren.pasajerosViajando.await();} catch (InterruptedException e) {e.printStackTrace();}
 					this.abordo = true;
-					if(tren.cantPasajerosAbordo==tren.cantPasajerosMax){//si soy el ultimo lo aviso asi sale jajaj
+					if(tren.cantPasajerosAbordo==tren.cantPasajerosMax){//si soy el ultimo lo aviso asi sale ;) TODO
 						tren.lockTrenEsperandoSalir.lock();
 						tren.trenEsperandoSalir.signal();
 						tren.lockTrenEsperandoSalir.unlock();
