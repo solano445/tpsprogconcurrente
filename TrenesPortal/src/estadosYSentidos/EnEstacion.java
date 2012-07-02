@@ -33,6 +33,11 @@ public class EnEstacion extends EstadoTren {
 			}		
 		}
 		this.tren.pasajerosABordo.removeAll(pasajerosQueSeBajaron);
+		
+		if(this.tren.estActual.esEstacionPortal()){
+			System.out.println(this.toString());
+		}
+		
 		this.tren.lockTrenViaje.unlock();
 		
 		//nuevo

@@ -108,4 +108,10 @@ public class EstacionConcreta {
 	public Integer cantPasajerosEsperando() {
 		return this.cantPasajerosEsperandoAndenA + this.cantPasajerosEsperandoAndenB;
 	}
+
+
+
+	public EstacionConcreta getEstacioPortal() {
+		return this.estacionRecorrido.recorrido.estacionPortal;
+	}
 }
