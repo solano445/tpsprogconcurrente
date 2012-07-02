@@ -13,11 +13,13 @@ public class EstacionRecorrido {
 	public EstacionRecorrido sigEstRecSenB;
 	public Sentido sentidoA;
 	public Sentido sentidoB;
+	public Recorrido recorrido;
 	
-	public EstacionRecorrido(EstacionConcreta estacion){
+	public EstacionRecorrido(EstacionConcreta estacion, Recorrido recorrido){
 		this.estacionConcreta = estacion;
 		this.sentidoA = Sentido.getA();
 		this.sentidoB = Sentido.getB();
+		this.recorrido = recorrido;
 	}
 	
 	public String getNombre(){

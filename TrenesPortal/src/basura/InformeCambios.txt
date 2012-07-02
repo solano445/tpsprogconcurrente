@@ -1,0 +1,5 @@
+
+Los recorridos poseen una estacionPortal:EstacionConcreta
+
+Las EstacionRecorrido conocen al recorrido, para pedir la estacionPortal:EstacionConcreta
+

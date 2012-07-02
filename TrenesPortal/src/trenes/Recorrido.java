@@ -9,13 +9,14 @@ import estadosYSentidos.Sentido;
 public class Recorrido{
 	public EstacionRecorrido priEstSenA;
 	public EstacionRecorrido priEstSenB; //es la ultima en el sentidoA
+	public EstacionConcreta estacionPortal;
 	public Integer cantidadEstaciones;
 	public static EstacionConcreta[] estacionesA;
 	public static EstacionConcreta[] estacionesB;
 	
 	public Recorrido(EstacionConcreta estacion){
 		super();
-		EstacionRecorrido nuevaEstacion = new EstacionRecorrido(estacion);
+		EstacionRecorrido nuevaEstacion = new EstacionRecorrido(estacion, this);
 		this.priEstSenA = nuevaEstacion;
 		this.priEstSenB = nuevaEstacion;
 		this.cantidadEstaciones = 1;
@@ -23,7 +24,7 @@ public class Recorrido{
 	}
 	
 	public void agregarEstacion(EstacionConcreta estacion){
-		EstacionRecorrido nuevaEstacion = new EstacionRecorrido(estacion);
+		EstacionRecorrido nuevaEstacion = new EstacionRecorrido(estacion, this);
 		estacion.agregarEstacionRecorrido(nuevaEstacion);
 		this.priEstSenB.sigEstRecSenA = nuevaEstacion;
 		this.priEstSenA.sigEstRecSenB = nuevaEstacion;
@@ -61,17 +62,18 @@ public class Recorrido{
 		recorrido.agregarEstacion(estacionesA[2]);
 		recorrido.agregarEstacion(estacionesA[3]);
 		crearVistas(recorrido);
+		recorrido.estacionPortal = estacionesA[1];
 		
 		return recorrido;
 	}
 	
-	static public Recorrido getRecorridoB(){	
+	static public Recorrido getRecorridoB(){
 		estacionesB = new EstacionConcreta[4];
 
-		estacionesB[0] = new EstacionConcreta("Retiro", 2, 1000);		
+		estacionesB[0] = new EstacionConcreta("Retiro", 2, 1000);
 		estacionesB[1] = new EstacionConcreta("3 de Febrero", 2, 700);
 		estacionesB[2] = new EstacionConcreta("M. Carranza", 2, 500);
-		estacionesB[3] = new EstacionConcreta("Colegiales", 2, 600);
+		estacionesB[3] = new EstacionConcreta("Colegialas", 2, 600);
 		
 		
 		Recorrido recorrido = new Recorrido(estacionesB[0]);		
@@ -79,6 +81,7 @@ public class Recorrido{
 		recorrido.agregarEstacion(estacionesB[2]);
 		recorrido.agregarEstacion(estacionesB[3]);
 		crearVistas(recorrido);
+		recorrido.estacionPortal = estacionesA[2];
 		
 		return recorrido;
 	}
