@@ -22,7 +22,15 @@ public class Pasajero extends Thread {
 		this.abordo = false;
 	}
 	
-	public void run() {		
+	public void run() {	
+		//TODO
+		/**Primero se fija si la estacion que busca esta en el recorrido**/
+		if(!this.estacionOrigen.estaEnRecorrido(estacionDestino)){
+			/**Debe dirijirse a la estacion [[portal]]**/
+			throw new RuntimeException("Pasajero sin destino");
+		}
+		
+		/**si existe continua la ejecucion normal**/		
 		this.sentido = this.estacionOrigen.sentidoMasCortoHasta(estacionDestino);
 		
 		this.sentido.getLockAndenEstacion(this.estacionOrigen).lock();

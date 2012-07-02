@@ -24,13 +24,13 @@ public class EnEstacion extends EstadoTren {
 		
 		//nuevo
 		this.tren.lockTrenViaje.lock();
-		List<Pasajero> pasajerosQueSeBajaron= new LinkedList<Pasajero>();
+		List<Pasajero> pasajerosQueSeBajaron = new LinkedList<Pasajero>();
 		for (Pasajero pasajero : this.tren.pasajerosABordo) {
 			if(pasajero.estacionDestino.equals(this.tren.getEstacionActual())){
 				//pasajero.llegoADestino = true;
 				this.tren.cantPasajerosAbordo--;
 				pasajerosQueSeBajaron.add(pasajero);				
-			}			
+			}		
 		}
 		this.tren.pasajerosABordo.removeAll(pasajerosQueSeBajaron);
 		this.tren.lockTrenViaje.unlock();
