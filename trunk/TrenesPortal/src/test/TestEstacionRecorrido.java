@@ -27,14 +27,14 @@ public class TestEstacionRecorrido {
 		this.est2 = new EstacionConcreta("Quilmes", 2, 700);
 		this.est3 = new EstacionConcreta("Ezpeleta", 2, 500);
 		this.est4 = new EstacionConcreta("Berazategui", 2, 600);	
-		this.estFalsa = new EstacionConcreta("FueraDeRecorrido", null, null);
-		this.estFalsa.agregarEstacionRecorrido(new EstacionRecorrido(this.estFalsa));
 		this.sentidoA = Sentido.getA();
 		this.sentidoB = Sentido.getB();
 		this.recorrido = new Recorrido(est1);		
 		this.recorrido.agregarEstacion(est2);
 		this.recorrido.agregarEstacion(est3);
 		this.recorrido.agregarEstacion(est4);
+		this.estFalsa = new EstacionConcreta("FueraDeRecorrido", null, null);
+		this.estFalsa.agregarEstacionRecorrido(new EstacionRecorrido(this.estFalsa, new Recorrido(this.estFalsa)));
 		Recorrido.crearVistas(this.recorrido);	
 	}
 	
