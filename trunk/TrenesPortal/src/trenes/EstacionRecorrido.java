@@ -58,4 +58,8 @@ public class EstacionRecorrido {
 	public boolean estaEnRecorrido(EstacionConcreta estacionDestino) {
 		return (!this.cantidadEstacionesSentido(estacionDestino, new SentidoA()).equals(0));
 	}
+	
+	public boolean esEstacionPortal() {
+		return false;
+	}
 }

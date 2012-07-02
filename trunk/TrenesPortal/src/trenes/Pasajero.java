@@ -10,9 +10,11 @@ public class Pasajero extends Thread {
 	public String nombre;
 	public EstacionConcreta estacionDestino; //Esta es la estacion hacia la que se dirije
 	public EstacionConcreta estacionOrigen; //Esta es la estacion donde sube
+	public EstacionConcreta estacionDestinoTemporal;
 	public SentidoPasajero sentido;
 	public boolean llegoADestino;
 	public boolean abordo;
+	public boolean teletransportar;
 	
 	public Pasajero(String nombre ,EstacionConcreta estacionOrigen, EstacionConcreta estacionDestino) {
 		this.nombre=nombre;
@@ -20,6 +22,7 @@ public class Pasajero extends Thread {
 		this.estacionOrigen=estacionOrigen;
 		this.llegoADestino = false;
 		this.abordo = false;
+		this.teletransportar = false;
 	}
 	
 	public void run() {	
@@ -27,7 +30,11 @@ public class Pasajero extends Thread {
 		/**Primero se fija si la estacion que busca esta en el recorrido**/
 		if(!this.estacionOrigen.estaEnRecorrido(estacionDestino)){
 			/**Debe dirijirse a la estacion [[portal]]**/
-			throw new RuntimeException("Pasajero sin destino");
+			this.teletransportar = true;
+			this.estacionDestinoTemporal = this.estacionDestino;
+			this.estacionDestino = this.estacionOrigen.getEstacioPortal();
+			System.out.println("el usuario " + nombre + " debe ser transportado a " + this.estacionDestinoTemporal.nombre + " a travez de la estacion " + this.estacionDestino.nombre );
+			//throw new RuntimeException("Pasajero sin destino");
 		}
 		
 		/**si existe continua la ejecucion normal**/		
