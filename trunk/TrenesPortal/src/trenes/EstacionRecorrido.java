@@ -1,6 +1,7 @@
 package trenes;
 
 import estadosYSentidos.Sentido;
+import estadosYSentidos.SentidoA;
 import estadosYSentidos.SentidoPasajero;
 import estadosYSentidos.SentidoPasajeroA;
 import estadosYSentidos.SentidoPasajeroB;
@@ -44,10 +45,15 @@ public class EstacionRecorrido {
 			distancia ++;
 			estacionsiguiente = sentido.siguienteEstacion(estacionsiguiente);
 			if(estacionsiguiente.equals(this)){
-				throw new RuntimeException("Papá, esa estación no esta en este recorrido");			
+				//throw new RuntimeException("Papá, esa estación no esta en este recorrido");			
+				return 0;
 			}
 		}
 		
 		return distancia;
+	}
+
+	public boolean estaEnRecorrido(EstacionConcreta estacionDestino) {
+		return (!this.cantidadEstacionesSentido(estacionDestino, new SentidoA()).equals(0));
 	}
 }

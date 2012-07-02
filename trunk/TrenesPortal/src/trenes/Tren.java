@@ -68,7 +68,7 @@ public class Tren extends Thread{
 	}
 	
 	static public void testearGetTrenes(){		
-		List<Tren> trenes = getTrenes(Recorrido.getRecorrido());
+		List<Tren> trenes = getTrenes(Recorrido.getRecorridoA());
 		for (Tren tren : trenes) {
 			System.out.print(tren.toString());
 		}

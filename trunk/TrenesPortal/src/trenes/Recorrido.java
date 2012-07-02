@@ -10,7 +10,8 @@ public class Recorrido{
 	public EstacionRecorrido priEstSenA;
 	public EstacionRecorrido priEstSenB; //es la ultima en el sentidoA
 	public Integer cantidadEstaciones;
-	public static EstacionConcreta[] estaciones;
+	public static EstacionConcreta[] estacionesA;
+	public static EstacionConcreta[] estacionesB;
 	
 	public Recorrido(EstacionConcreta estacion){
 		super();
@@ -46,19 +47,37 @@ public class Recorrido{
 	}
 	
 	
-	static public Recorrido getRecorrido(){	
-		estaciones = new EstacionConcreta[4];
+	static public Recorrido getRecorridoA(){	
+		estacionesA = new EstacionConcreta[4];
 
-		estaciones[0] = new EstacionConcreta("Bernal", 2, 400);		
-		estaciones[1] = new EstacionConcreta("Quilmes", 2, 700);
-		estaciones[2] = new EstacionConcreta("Ezpeleta", 2, 500);
-		estaciones[3] = new EstacionConcreta("Berazategui", 2, 600);
+		estacionesA[0] = new EstacionConcreta("Bernal", 2, 400);		
+		estacionesA[1] = new EstacionConcreta("Quilmes", 2, 700);
+		estacionesA[2] = new EstacionConcreta("Ezpeleta", 2, 500);
+		estacionesA[3] = new EstacionConcreta("Berazategui", 2, 600);
 		
 		
-		Recorrido recorrido = new Recorrido(estaciones[0]);		
-		recorrido.agregarEstacion(estaciones[1]);
-		recorrido.agregarEstacion(estaciones[2]);
-		recorrido.agregarEstacion(estaciones[3]);
+		Recorrido recorrido = new Recorrido(estacionesA[0]);		
+		recorrido.agregarEstacion(estacionesA[1]);
+		recorrido.agregarEstacion(estacionesA[2]);
+		recorrido.agregarEstacion(estacionesA[3]);
+		crearVistas(recorrido);
+		
+		return recorrido;
+	}
+	
+	static public Recorrido getRecorridoB(){	
+		estacionesB = new EstacionConcreta[4];
+
+		estacionesB[0] = new EstacionConcreta("Retiro", 2, 1000);		
+		estacionesB[1] = new EstacionConcreta("3 de Febrero", 2, 700);
+		estacionesB[2] = new EstacionConcreta("M. Carranza", 2, 500);
+		estacionesB[3] = new EstacionConcreta("Colegiales", 2, 600);
+		
+		
+		Recorrido recorrido = new Recorrido(estacionesB[0]);		
+		recorrido.agregarEstacion(estacionesB[1]);
+		recorrido.agregarEstacion(estacionesB[2]);
+		recorrido.agregarEstacion(estacionesB[3]);
 		crearVistas(recorrido);
 		
 		return recorrido;

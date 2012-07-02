@@ -101,10 +101,11 @@ public class EstacionConcreta {
 		return this.estacionRecorrido.sentidoMasCortoHasta(estacionDestino);
 	}
 
-
+	public boolean estaEnRecorrido(EstacionConcreta estacionDestino) {
+		return this.estacionRecorrido.estaEnRecorrido(estacionDestino);
+	}
 
 	public Integer cantPasajerosEsperando() {
 		return this.cantPasajerosEsperandoAndenA + this.cantPasajerosEsperandoAndenB;
 	}
-
 }

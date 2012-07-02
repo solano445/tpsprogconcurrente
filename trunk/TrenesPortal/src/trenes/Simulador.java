@@ -19,20 +19,26 @@ public class Simulador {
 	public static void main(String[] args) {
 		createWindow();
 		Pantalla pantalla = Pantalla.getInstance();
-		Recorrido recorrido = Recorrido.getRecorrido();
+		Recorrido recorrido = Recorrido.getRecorridoA();
+		Recorrido.getRecorridoB();
 		List<Tren> trenes = Tren.getTrenes(recorrido);
 		//agregar a las personas
 		
 		//Viajan De Ezpeleta A Berazategui
+		
 		for (int i = 0; i < 200; i++) {
-			new Pasajero("Juan" , Recorrido.estaciones[0] ,Recorrido.estaciones[3]).start();
+			new Pasajero("Juan" , Recorrido.estacionesA[0] ,Recorrido.estacionesA[3]).start();
 			
 		}
 		//Viajan De Berazategui A Ezpeleta
 		for (int i = 0; i < 200; i++) {
-			new Pasajero("Domingo" , Recorrido.estaciones[3] ,Recorrido.estaciones[0]).start();
+			new Pasajero("Domingo" , Recorrido.estacionesA[3] ,Recorrido.estacionesA[0]).start();
 			
 		}
+		
+		/**TODO Este pasajero esta en cualquiera**/
+		new Pasajero("Juan" , Recorrido.estacionesA[0] , Recorrido.estacionesB[0]).start();
+		
 		for(Tren tren:trenes){
 			tren.start();
 		}
