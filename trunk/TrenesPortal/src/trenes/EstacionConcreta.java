@@ -114,4 +114,10 @@ public class EstacionConcreta {
 	public EstacionConcreta getEstacioPortal() {
 		return this.estacionRecorrido.recorrido.estacionPortal;
 	}
+
+
+
+	public boolean esEstacionPortal() {
+		return false;
+	}
 }
