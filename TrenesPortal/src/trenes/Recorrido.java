@@ -52,7 +52,7 @@ public class Recorrido{
 		estacionesA = new EstacionConcreta[4];
 
 		estacionesA[0] = new EstacionConcreta("Bernal", 2, 400);		
-		estacionesA[1] = new EstacionConcreta("Quilmes", 2, 700);
+		estacionesA[1] = new EstacionTeleporter("Quilmes", 2, 700);
 		estacionesA[2] = new EstacionConcreta("Ezpeleta", 2, 500);
 		estacionesA[3] = new EstacionConcreta("Berazategui", 2, 600);
 		
@@ -73,7 +73,7 @@ public class Recorrido{
 		estacionesB[0] = new EstacionConcreta("Retiro", 2, 1000);
 		estacionesB[1] = new EstacionConcreta("3 de Febrero", 2, 700);
 		estacionesB[2] = new EstacionConcreta("M. Carranza", 2, 500);
-		estacionesB[3] = new EstacionConcreta("Colegialas", 2, 600);
+		estacionesB[3] = new EstacionTeleporter("Colegialas", 2, 600);
 		
 		
 		Recorrido recorrido = new Recorrido(estacionesB[0]);		
@@ -81,7 +81,7 @@ public class Recorrido{
 		recorrido.agregarEstacion(estacionesB[2]);
 		recorrido.agregarEstacion(estacionesB[3]);
 		crearVistas(recorrido);
-		recorrido.estacionPortal = estacionesA[2];
+		recorrido.estacionPortal = estacionesB[3];
 		
 		return recorrido;
 	}
@@ -106,6 +106,25 @@ public class Recorrido{
 		for (VistaEstacion vistaEstacion : vistas) {
 			System.out.print("[" + vistaEstacion + "] ");
 		}
+	}
+
+	/**
+	 * Devuelve la estacion que tenga ese nombre
+	 * @param nombre
+	 * @return
+	 */
+	public static EstacionConcreta getEstacion(String nombre) {
+		for (int i = 0; i < estacionesA.length; i++) {
+			if(estacionesA[i].nombre.equals(nombre)){
+				return estacionesA[i];
+			}
+		}
+		for (int i = 0; i < estacionesB.length; i++) {
+			if(estacionesB[i].nombre.equals(nombre)){
+				return estacionesB[i];
+			}
+		}
+		throw new RuntimeException("No Existe la estacion: " + nombre);
 	}
 
 }

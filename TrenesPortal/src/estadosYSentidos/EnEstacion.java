@@ -34,13 +34,11 @@ public class EnEstacion extends EstadoTren {
 		}
 		if(this.tren.estActual.esEstacionPortal()){
 			for (Pasajero pasajero : this.tren.pasajerosABordo) {
-				if(pasajero.teletransportar){					
-					//pasajero.llegoADestino = true;
-					this.tren.cantPasajerosAbordo--;
-					//TODO aca hay que portalear al pasajero
+				if(pasajero.teletransportar){
+					this.tren.estActual.estacionConcreta.teletransportar(pasajero); //Chequear si revienta para castear.
+					//TODO aca hay que portalear al pasajero					
 					//la estacion extiende de la concreta
 					//e implemeta la teletransportacion
-					pasajerosQueSeBajaron.add(pasajero);				
 				}		
 			}			
 		}

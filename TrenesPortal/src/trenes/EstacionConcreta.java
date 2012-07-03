@@ -120,4 +120,8 @@ public class EstacionConcreta {
 	public boolean esEstacionPortal() {
 		return false;
 	}
+	public void teletransportar(Pasajero pasajero){
+		throw new RuntimeException("No Es Una Estacion Teleporter(Altas Estrategias de programacion)");
+		
+	}
 }
