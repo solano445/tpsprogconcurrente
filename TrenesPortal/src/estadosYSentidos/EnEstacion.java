@@ -32,11 +32,21 @@ public class EnEstacion extends EstadoTren {
 				pasajerosQueSeBajaron.add(pasajero);				
 			}		
 		}
+		if(this.tren.estActual.esEstacionPortal()){
+			for (Pasajero pasajero : this.tren.pasajerosABordo) {
+				if(pasajero.teletransportar){					
+					//pasajero.llegoADestino = true;
+					this.tren.cantPasajerosAbordo--;
+					//TODO aca hay que portalear al pasajero
+					//la estacion extiende de la concreta
+					//e implemeta la teletransportacion
+					pasajerosQueSeBajaron.add(pasajero);				
+				}		
+			}			
+		}
+		
 		this.tren.pasajerosABordo.removeAll(pasajerosQueSeBajaron);
 		
-		if(this.tren.estActual.esEstacionPortal()){
-			System.out.println(this.toString());
-		}
 		
 		this.tren.lockTrenViaje.unlock();
 		

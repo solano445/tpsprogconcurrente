@@ -60,6 +60,6 @@ public class EstacionRecorrido {
 	}
 	
 	public boolean esEstacionPortal() {
-		return false;
+		return this.estacionConcreta.esEstacionPortal();
 	}
 }
