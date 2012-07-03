@@ -12,7 +12,7 @@ import java.util.List;
 
 import vista.Pantalla;
 
-public class Simulador {
+public class SimuladorBlackSide {
 	
 	public static Boolean terminaSimulacion = false;
 	public static JFrame frame;
@@ -21,29 +21,29 @@ public class Simulador {
 	public static void main(String[] args) {
 		createWindow();
 		Pantalla pantalla = Pantalla.getInstance();
-		Recorrido recorrido = Recorrido.getRecorridoA();
-		Recorrido.getRecorridoB();
+		Recorrido recorrido = Recorrido.getRecorridoB();
+		Recorrido.getRecorridoA();
 		List<Tren> trenes = Tren.getTrenes(recorrido);
 		//agregar a las personas
 		
 		//aca se crea el portal ya qeu a partir de aqui se pueden agregar personas
-		Portal.setInstance(new Portal(recorrido, 1234, 1235));
+		Portal.setInstance(new Portal(recorrido, 1235, 1234));
 		Portal.getInstance().start();
 		
 		
 		//Viajan De Ezpeleta A Berazategui		
 		for (int i = 0; i < 200; i++) {
-			new Pasajero("Juan" , Recorrido.estacionesA[0] ,Recorrido.estacionesA[3]).start();
+			new Pasajero("DarthVader" , Recorrido.estacionesB[0] ,Recorrido.estacionesB[3]).start();
 			
 		}
 		//Viajan De Berazategui A Ezpeleta
 		for (int i = 0; i < 200; i++) {
-			new Pasajero("Domingo" , Recorrido.estacionesA[3] ,Recorrido.estacionesA[0]).start();
+			new Pasajero("BlackDomingo" , Recorrido.estacionesB[3] ,Recorrido.estacionesB[0]).start();
 			
 		}
 		
 		/**TODO Este pasajero esta en cualquiera**/
-		new Pasajero("Peron" , Recorrido.estacionesA[0] , Recorrido.estacionesB[0]).start();
+		new Pasajero("JackBlack" , Recorrido.estacionesB[0] , Recorrido.estacionesA[0]).start();
 		
 		for(Tren tren:trenes){
 			tren.start();
