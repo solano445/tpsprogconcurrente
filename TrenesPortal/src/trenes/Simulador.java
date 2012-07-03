@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
+import portal.Portal;
+
 import java.util.List;
 
 import vista.Pantalla;
@@ -24,8 +26,11 @@ public class Simulador {
 		List<Tren> trenes = Tren.getTrenes(recorrido);
 		//agregar a las personas
 		
-		//Viajan De Ezpeleta A Berazategui
+		//aca se crea el portal ya qeu a partir de aqui se pueden agregar personas
+		new Portal(recorrido, 1234, 1235).start();
 		
+		
+		//Viajan De Ezpeleta A Berazategui		
 		for (int i = 0; i < 200; i++) {
 			new Pasajero("Juan" , Recorrido.estacionesA[0] ,Recorrido.estacionesA[3]).start();
 			
